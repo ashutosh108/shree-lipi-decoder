@@ -328,11 +328,25 @@ return {
 	},
 
 	'elementToUnicode': function (element) {
-		if (element.nodeType == 3) {
-			var font_family = getComputedStyle(element.parentElement, null).getPropertyValue('font-family');
-			if (font_family.indexOf("\"SH") !== -1) {
-				element.textContent = $slc.stringToUnicode2(element.textContent);
+		function needsRecoding(element) {
+			var class_list = element.parentElement.classList;
+			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19'];
+			for (i=0; i<roman_classes.length; i++) {
+				if (class_list.contains(roman_classes[i]))
+					return false;
 			}
+			// '[' and ']' chars in title are not in SHREExxx font
+			if (class_list.contains('s4') && !class_list.contains('s2')) {
+				return false;
+			}
+			return true;
+		}
+
+		// skip and don't recurse into our floating <div> with buttons
+		if (element.nodeType === 1 && element.classList.contains('slc-float')) { return; }
+
+		if (element.nodeType == 3 && needsRecoding(element)) {
+			element.textContent = $slc.stringToUnicode2(element.textContent);
 		}
 		for (var i=0; i<element.childNodes.length; i++) {
 			$slc.elementToUnicode(element.childNodes[i]);
