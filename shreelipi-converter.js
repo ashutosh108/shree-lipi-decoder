@@ -2,12 +2,16 @@ $slc = (function() {
 
 var C = {
 	KA: 'क',
+	KHA: 'ख',
 	CA: 'च',
 	NYA: 'ञ',
 	JA: 'ज',
+	TTA: 'ट',
+	TTHA: 'ठ',
 	DDA: 'ड',
 	NNA: 'ण',
 	TA: 'त',
+	THA: 'थ',
 	DA: 'द',
 	NA: 'न',
 	PA: 'प',
@@ -20,11 +24,13 @@ var C = {
 	ZA: 'श',
 	SA: 'स',
 	HA: 'ह',
+	A: 'अ',
 	_A_DIRGHA: 'ा',
 	_I: 'ि',
 	_I_DIRGHA: 'ी',
 	_U: 'ु',
 	_U_DIRGHA: 'ू',
+	_RI: 'ृ',
 	_E: 'े',
 	_O: 'ो',
 	VIRAMA: '्',
@@ -32,6 +38,7 @@ var C = {
 };
 
 var INCOMPLETE_CONSONANT = {
+	'A': C.KHA,
 	'\\': C.VA,
 	'Y': C.YA,
 	'E': C.CA,
@@ -43,13 +50,16 @@ var INCOMPLETE_CONSONANT = {
 	'X': C.MA,
 	'S': C.NA,
 	'V': C.BA,
-	'\u00df': C.NA + C.VIRAMA + C.NA,
-	'\u20ac': C.NYA + C.VIRAMA + C.JA,
+	// '\u00df': C.NA + C.VIRAMA + C.NA,
+	// '\u20ac': C.NYA + C.VIRAMA + C.JA,
+	'P': C.THA,
 };
 
 var COMPLETE_CONSONANT = {
 	'd': C.ZA + C.VIRAMA + C.RA,
 	'@': C.KA,
+	'J': C.TTA,
+	'K': C.TTHA,
 	'L': C.DDA,
 	'Z': C.RA,
 	'[': C.LA,
@@ -60,10 +70,15 @@ var COMPLETE_CONSONANT = {
 
 var COMBINING_SVARA = {
 	'p': C._A_DIRGHA,
+	'r': C._I_DIRGHA,
 	's': C._U,
 	't': C._U_DIRGHA,
-	'r': C._I_DIRGHA,
+	'w': C._RI,
 	'u': C._E,
+};
+
+var COMPLETE_SVARA = {
+	'\u00cf': C.A,
 };
 
 var DIGITS = {
@@ -184,6 +199,7 @@ return {
 				CONSONANT_WITHOUT_BAR: 2,
 				COMPLETE_SYLLABLE: 3,
 				COMPLETE_SYLLABLE_WITH_SVARA: 4,
+				COMPLETE_SVARA: 5,
 			};
 			var state = STATE.INIT;
 			var consumed = '';
@@ -237,6 +253,12 @@ return {
 						got_tail_i = false;
 						state = STATE.COMPLETE_SYLLABLE_WITH_SVARA;
 					}
+				} else if (COMPLETE_SVARA.hasOwnProperty(text[i])) {
+					if (state === STATE.INIT) {
+						consumed += text[i];
+						out += COMPLETE_SVARA[text[i]];
+						state = STATE.COMPLETE_SVARA;
+					}
 				} else switch (text[i]) {
 					case '"': // bar
 						if (state === STATE.INIT) {
@@ -265,11 +287,7 @@ return {
 							out += C.VISARGA;
 						}
 						break stringloop;
-					case '\u00ad': // soft hyphen
-						consumed += text[i];
-						out += text[i];
-						break;
-					case '\u02c7': // small space (used after ka)
+					case '\u00b0': // small space (used after ka)
 						consumed += text[i];
 						break;
 					case '>': // small space (used after dda)
@@ -288,6 +306,12 @@ return {
 							consumed += text[i];
 							out = C.RA + C.VIRAMA + out;
 							break;
+						}
+						break stringloop;
+					case ',': // comma
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += text[i];
 						}
 						break stringloop;
 					default:
