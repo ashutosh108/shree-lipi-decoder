@@ -66,6 +66,14 @@
 			['K', 'ठ', 'TTHA'],
 			[',', ',', 'comma'],
 			['\u00cf', 'अ', 'a'],
+			['\u00cfp', 'आ', 'aa'],
+			['B"', 'ग', 'ga'],
+			['\u00c1', 'द्र', 'dra'],
+			['\u00e4', 'ङ्क', 'ngka'],
+			['$', '।', 'separator: single vertical bar'],
+			['fl"', 'न्न', 'nna'],
+			['\u00c4', 'ञ्ज', 'Nja'],
+			['\u00e0', 'ह्व', 'hva'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

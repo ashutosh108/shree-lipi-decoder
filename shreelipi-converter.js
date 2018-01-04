@@ -3,6 +3,8 @@ $slc = (function() {
 var C = {
 	KA: 'क',
 	KHA: 'ख',
+	GA: 'ग',
+	NGA: 'ङ',
 	CA: 'च',
 	NYA: 'ञ',
 	JA: 'ज',
@@ -25,6 +27,7 @@ var C = {
 	SA: 'स',
 	HA: 'ह',
 	A: 'अ',
+	AA: 'आ',
 	_A_DIRGHA: 'ा',
 	_I: 'ि',
 	_I_DIRGHA: 'ी',
@@ -39,6 +42,7 @@ var C = {
 
 var INCOMPLETE_CONSONANT = {
 	'A': C.KHA,
+	'B': C.GA,
 	'\\': C.VA,
 	'Y': C.YA,
 	'E': C.CA,
@@ -50,8 +54,8 @@ var INCOMPLETE_CONSONANT = {
 	'X': C.MA,
 	'S': C.NA,
 	'V': C.BA,
-	// '\u00df': C.NA + C.VIRAMA + C.NA,
-	// '\u20ac': C.NYA + C.VIRAMA + C.JA,
+	'\u00df': C.NA + C.VIRAMA + C.NA,
+	'\u00c4': C.NYA + C.VIRAMA + C.JA,
 	'P': C.THA,
 };
 
@@ -66,6 +70,9 @@ var COMPLETE_CONSONANT = {
 	'`': C.HA,
 	'Q': C.DA,
 	'.': '.',
+	'\u00c1': C.DA + C.VIRAMA + C.RA,
+	'\u00e4': C.NGA + C.VIRAMA + C.KA,
+	'\u00e0': C.HA + C.VIRAMA + C.VA,
 };
 
 var COMBINING_SVARA = {
@@ -95,104 +102,13 @@ var DIGITS = {
 }
 
 return {
-	'stringToUnicode': function (text) {
-		var FLAG = {
-			NEED_VERT_BAR: 1,
-			ADD_SHORT_I: 2,
-		};
-		var flags = 0;
-		var matches = Array(
-			// Array('\\"p', 'वा'),
-			// Array('Y"s', 'यु'),
-			// Array('_O"s', 'स्तु'),
-			// Array('<O"#', 'तिः'),
-			// Array('dr', 'श्री'),
-			// Array('<e"', 'त्रि')
-		);
-		var newText = "";
-		for (var i=0; i<text.length; i++) {
-			switch (text[i]) {
-				case '\\': // va (without vertical bar)
-					newText += C.VA + C.VIRAMA;
-					break;
-				case '"': // verical bar
-					if (newText.endsWith(C.VIRAMA))
-						newText = newText.substring(0, newText.length-1);
-					else
-						newText += '"';
-					if (flags & FLAG.ADD_SHORT_I) {
-						flags &= ~FLAG.ADD_SHORT_I;
-						newText += C._I;
-					}
-					break;
-				case 'p': // verical bar with space (for long 'a' after consonants)
-					newText += C._A_DIRGHA;
-					break;
-				case 'Y': // ya (no bar)
-					newText += C.YA + C.VIRAMA;
-					break;
-				case 's': // u (after consonant)
-					newText += C._U;
-					break;
-				case '_': // sa (no bar)
-					newText += C.SA + C.VIRAMA;
-					break;
-				case 'O': // ta (no bar)
-					newText += C.TA + C.VIRAMA;
-					break;
-				case '<': // long i (combined with consonant; present before consonant)
-					flags |= FLAG.ADD_SHORT_I;
-					break;
-				case '#': // visarga
-					newText += C.VISARGA;
-					break;
-				case 'd': // zra
-					newText += C.ZA + C.VIRAMA + C.RA;
-					break;
-				case 'r': // I dirgha (combined)
-					newText += C._I_DIRGHA;
-					break;
-				case 'e': // tra (no bar)
-					newText += C.TA + C.VIRAMA + C.RA + C.VIRAMA;
-					break;
-				case '@': // ka
-					newText += C.KA;
-					break;
-				case '}': // -ra combined (short diagonal dash to the left-down)
-					newText += C.VIRAMA + C.RA;
-					break;
-				case 'ˇ': // ???
-					break;
-				case 'X': // ma (no bar)
-					newText += C.MA + C.VIRAMA;
-					break;
-				case 'T': // pa (no bar)
-					newText += C.PA + C.VIRAMA;
-					break;
-				case 'N': // NNA (no bar)
-					newText += C.NNA + C.VIRAMA;
-					break;
-				case 'L': // DDA
-					newText += C.DDA;
-					if (flags & FLAG.ADD_SHORT_I) {
-						flags &= ~FLAG.ADD_SHORT_I;
-						newText += C._I;
-					}
-					break;
-				case '>': // small space
-					break;
-				case 'E': // ca (no bar)
-					newText += C.CA + C.VIRAMA;
-					break;
-				default:
-					newText += text[i];
-			}
-		}
-		return newText;
-	},
-
 	'stringToUnicode2': function (text) {
 		function convertSyllable(text) {
+			function peek(text, i, str) {
+				return (text.substring(i, i+str.length) === str);
+			}
+
+
 			var got_tail_i = false;
 			var STATE = {
 				INIT: 1,
@@ -223,11 +139,11 @@ return {
 						break stringloop;
 					}
 				} else if (COMBINING_SVARA.hasOwnProperty(text[i])) {
-					var char = COMBINING_SVARA[text[i]];
 					if (state === STATE.COMPLETE_SYLLABLE) {
+						var char = COMBINING_SVARA[text[i]];
 						// special case: p+u means "-o", not "-a"+"-e"
 						consumed += text[i];
-						if (char === C._A_DIRGHA && i+1 < text.length && text[i+1] === 'u') {
+						if (char === C._A_DIRGHA && peek(text, i+1, 'u')) {
 							char = C._O;
 							consumed += text[i+1]
 							i++;
@@ -255,8 +171,14 @@ return {
 					}
 				} else if (COMPLETE_SVARA.hasOwnProperty(text[i])) {
 					if (state === STATE.INIT) {
+						var char = COMPLETE_SVARA[text[i]];
 						consumed += text[i];
-						out += COMPLETE_SVARA[text[i]];
+						if (char === C.A && peek(text, i+1, 'p')) {
+							char = C.AA;
+							consumed += text[i+1];
+							i++;
+						}
+						out += char;
 						state = STATE.COMPLETE_SVARA;
 					}
 				} else switch (text[i]) {
@@ -314,6 +236,12 @@ return {
 							out += text[i];
 						}
 						break stringloop;
+					case '$': // separator: single vertical bar
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += '।';
+						}
+						break stringloop;
 					default:
 						break stringloop;
 				}
@@ -324,6 +252,9 @@ return {
 			}
 			return {'consumed': consumed, 'out': out};
 		}
+
+		// fix wrongly disassembled ligature
+		text = text.replace('fl', '\u00df');
 
 		newText = '';
 		while (text !== '') {
