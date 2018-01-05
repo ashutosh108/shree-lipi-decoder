@@ -15,19 +15,23 @@ var C = {
 	TA: 'त',
 	THA: 'थ',
 	DA: 'द',
+	DHA: 'ध',
 	NA: 'न',
 	PA: 'प',
 	BA: 'ब',
+	BHA: 'भ',
 	MA: 'म',
 	YA: 'य',
 	RA: 'र',
 	LA: 'ल',
 	VA: 'व',
 	ZA: 'श',
+	SHA: 'ष',
 	SA: 'स',
 	HA: 'ह',
 	A: 'अ',
 	AA: 'आ',
+	U: 'उ',
 	_A_DIRGHA: 'ा',
 	_I: 'ि',
 	_I_DIRGHA: 'ी',
@@ -37,6 +41,7 @@ var C = {
 	_E: 'े',
 	_O: 'ो',
 	VIRAMA: '्',
+	ANUSVARA: 'ं',
 	VISARGA: 'ः',
 };
 
@@ -46,17 +51,23 @@ var INCOMPLETE_CONSONANT = {
 	'\\': C.VA,
 	'Y': C.YA,
 	'E': C.CA,
+	'G': C.JA,
 	'N': C.NNA,
 	'T': C.PA,
+	'V': C.BA,
+	'W': C.BHA,
 	'_': C.SA,
 	'e': C.TA + C.VIRAMA + C.RA,
 	'O': C.TA,
+	'R': C.DHA,
 	'X': C.MA,
 	'S': C.NA,
-	'V': C.BA,
 	'\u00df': C.NA + C.VIRAMA + C.NA,
 	'\u00c4': C.NYA + C.VIRAMA + C.JA,
 	'P': C.THA,
+	'\u2014': C.TA + C.VIRAMA + C.NA,
+	']': C.ZA,
+	'^': C.SHA,
 };
 
 var COMPLETE_CONSONANT = {
@@ -73,6 +84,9 @@ var COMPLETE_CONSONANT = {
 	'\u00c1': C.DA + C.VIRAMA + C.RA,
 	'\u00e4': C.NGA + C.VIRAMA + C.KA,
 	'\u00e0': C.HA + C.VIRAMA + C.VA,
+	'\u00f9': C.DA + C.VIRAMA + C.YA,
+	'\u2260': C.DA + C.VIRAMA + C.MA,
+	'\u201a': C.HA + C._RI,
 };
 
 var COMBINING_SVARA = {
@@ -82,10 +96,12 @@ var COMBINING_SVARA = {
 	't': C._U_DIRGHA,
 	'w': C._RI,
 	'u': C._E,
+	'z': C.ANUSVARA,
 };
 
 var COMPLETE_SVARA = {
 	'\u00cf': C.A,
+	'\u00cc': C.U,
 };
 
 var DIGITS = {
@@ -231,6 +247,8 @@ return {
 						}
 						break stringloop;
 					case ',': // comma
+					case '(':
+					case ')':
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += text[i];
@@ -240,6 +258,12 @@ return {
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += '।';
+						}
+						break stringloop;
+					case 'o': // virama
+						if (state === STATE.COMPLETE_SYLLABLE) {
+							consumed += text[i];
+							out += C.VIRAMA;
 						}
 						break stringloop;
 					default:
