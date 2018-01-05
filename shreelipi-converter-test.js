@@ -87,6 +87,11 @@
 			['G"', 'ज', 'ja'],
 			['()', '()', 'parentheses'],
 			['\u00cc', 'उ', 'u'],
+			['\u00fb', 'द्ग', 'dga'],
+			['\u00fbl', 'द्गु', 'dgu'],
+			['\u2021', 'रु', 'ru'],
+			['-', '-', 'hyphen'],
+			['c"', 'ज्ञ', 'jna'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

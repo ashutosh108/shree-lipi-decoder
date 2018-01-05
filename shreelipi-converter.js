@@ -68,6 +68,7 @@ var INCOMPLETE_CONSONANT = {
 	'\u2014': C.TA + C.VIRAMA + C.NA,
 	']': C.ZA,
 	'^': C.SHA,
+	'c': C.JA + C.VIRAMA + C.NYA,
 };
 
 var COMPLETE_CONSONANT = {
@@ -87,12 +88,15 @@ var COMPLETE_CONSONANT = {
 	'\u00f9': C.DA + C.VIRAMA + C.YA,
 	'\u2260': C.DA + C.VIRAMA + C.MA,
 	'\u201a': C.HA + C._RI,
+	'\u00fb': C.DA + C.VIRAMA + C.GA,
+	'\u2021': C.RA + C._U,
 };
 
 var COMBINING_SVARA = {
 	'p': C._A_DIRGHA,
 	'r': C._I_DIRGHA,
 	's': C._U,
+	'l': C._U,
 	't': C._U_DIRGHA,
 	'w': C._RI,
 	'u': C._E,
@@ -249,6 +253,7 @@ return {
 					case ',': // comma
 					case '(':
 					case ')':
+					case '-': // hyphen
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += text[i];
