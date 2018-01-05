@@ -92,6 +92,11 @@
 			['\u2021', 'रु', 'ru'],
 			['-', '-', 'hyphen'],
 			['c"', 'ज्ञ', 'jna'],
+			['P"|', 'र्थं', 'rthaM'],
+			['V"wz', 'बृं', 'bRM'],
+			['\u00ec_O"', 'स्ति', 'sti'],
+			['\u00fc', 'द्व', 'dva'],
+			['\u2206', 'श्च', 'zca'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

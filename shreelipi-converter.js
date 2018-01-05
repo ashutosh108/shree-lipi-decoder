@@ -69,6 +69,7 @@ var INCOMPLETE_CONSONANT = {
 	']': C.ZA,
 	'^': C.SHA,
 	'c': C.JA + C.VIRAMA + C.NYA,
+	'\u2206': C.ZA + C.VIRAMA + C.CA,
 };
 
 var COMPLETE_CONSONANT = {
@@ -86,6 +87,7 @@ var COMPLETE_CONSONANT = {
 	'\u00e4': C.NGA + C.VIRAMA + C.KA,
 	'\u00e0': C.HA + C.VIRAMA + C.VA,
 	'\u00f9': C.DA + C.VIRAMA + C.YA,
+	'\u00fc': C.DA + C.VIRAMA + C.VA,
 	'\u2260': C.DA + C.VIRAMA + C.MA,
 	'\u201a': C.HA + C._RI,
 	'\u00fb': C.DA + C.VIRAMA + C.GA,
@@ -100,7 +102,6 @@ var COMBINING_SVARA = {
 	't': C._U_DIRGHA,
 	'w': C._RI,
 	'u': C._E,
-	'z': C.ANUSVARA,
 };
 
 var COMPLETE_SVARA = {
@@ -214,8 +215,9 @@ return {
 							state = STATE.COMPLETE_SYLLABLE;
 						}
 						break;
-					case '<': // tail i hrasva (longer version)
 					case 'q': // tail i hrasva (shorter version)
+					case '<': // tail i hrasva (longer version)
+					case '\u00ec': // tail i hrasva (even longer version, used in sti)
 						if (state === STATE.INIT && !got_tail_i) {
 							got_tail_i = true;
 							consumed += text[i];
@@ -223,6 +225,12 @@ return {
 							break stringloop;
 						}
 						break;
+					case 'z': // anusvara
+						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.COMPLETE_SYLLABLE_WITH_SVARA) {
+							consumed += text[i];
+							out += C.ANUSVARA;
+						}
+						break stringloop;
 					case '#': // visarga
 						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.COMPLETE_SYLLABLE_WITH_SVARA) {
 							consumed += text[i];
@@ -250,6 +258,12 @@ return {
 							break;
 						}
 						break stringloop;
+					case '|': // combining start ra + anusvara
+						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.COMPLETE_SYLLABLE_WITH_SVARA) {
+							consumed += text[i];
+							out = C.RA + C.VIRAMA + out + C.ANUSVARA;
+						}
+						break; stringloop;
 					case ',': // comma
 					case '(':
 					case ')':
