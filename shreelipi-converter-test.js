@@ -56,6 +56,8 @@
 			// ['\u20ac"', 'ञ्ज', 'Nja'],
 			// ['\u20ac"u', 'ञ्जे', 'Nje'],
 			['Qpu', 'दो', 'do'],
+			['Qv', 'दै', 'dai'],
+			['Qpv', 'दौ', 'dau'],
 			// Array('<O"#', 'तिः'),
 			// Array('dr', 'श्री'),
 			// Array('<e"', 'त्रि')
@@ -97,6 +99,13 @@
 			['\u00ec_O"', 'स्ति', 'sti'],
 			['\u00fc', 'द्व', 'dva'],
 			['\u2206', 'श्च', 'zca'],
+			['\u00f5', 'ड्ड', 'DDa'],
+			['b"', 'क्ष', 'kSa'],
+			['\u00d4', 'ए', 'e'],
+			['\u00eb', '\u2018', 'LEFT SINGLE QUOTATION MARK'],
+			['\u00ed', '\u2019', 'RIGHT SINGLE QUOTATION MARK'],
+			['@}\u00b0\u00ee', 'क्री', 'krI'],
+			['\u00da', 'इ', 'i'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

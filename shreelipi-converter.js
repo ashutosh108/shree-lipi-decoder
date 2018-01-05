@@ -31,7 +31,9 @@ var C = {
 	HA: 'ह',
 	A: 'अ',
 	AA: 'आ',
+	I: 'इ',
 	U: 'उ',
+	E: 'ए',
 	_A_DIRGHA: 'ा',
 	_I: 'ि',
 	_I_DIRGHA: 'ी',
@@ -39,7 +41,9 @@ var C = {
 	_U_DIRGHA: 'ू',
 	_RI: 'ृ',
 	_E: 'े',
+	_AI: 'ै',
 	_O: 'ो',
+	_AU: 'ौ',
 	VIRAMA: '्',
 	ANUSVARA: 'ं',
 	VISARGA: 'ः',
@@ -57,6 +61,7 @@ var INCOMPLETE_CONSONANT = {
 	'V': C.BA,
 	'W': C.BHA,
 	'_': C.SA,
+	'b': C.KA + C.VIRAMA + C.SHA,
 	'e': C.TA + C.VIRAMA + C.RA,
 	'O': C.TA,
 	'R': C.DHA,
@@ -86,6 +91,7 @@ var COMPLETE_CONSONANT = {
 	'\u00c1': C.DA + C.VIRAMA + C.RA,
 	'\u00e4': C.NGA + C.VIRAMA + C.KA,
 	'\u00e0': C.HA + C.VIRAMA + C.VA,
+	'\u00f5': C.DDA + C.VIRAMA + C.DDA,
 	'\u00f9': C.DA + C.VIRAMA + C.YA,
 	'\u00fc': C.DA + C.VIRAMA + C.VA,
 	'\u2260': C.DA + C.VIRAMA + C.MA,
@@ -97,16 +103,20 @@ var COMPLETE_CONSONANT = {
 var COMBINING_SVARA = {
 	'p': C._A_DIRGHA,
 	'r': C._I_DIRGHA,
+	'\u00ee': C._I_DIRGHA, // longer version, used in 'krI'
 	's': C._U,
 	'l': C._U,
 	't': C._U_DIRGHA,
 	'w': C._RI,
 	'u': C._E,
+	'v': C._AI,
 };
 
 var COMPLETE_SVARA = {
 	'\u00cf': C.A,
+	'\u00da': C.I,
 	'\u00cc': C.U,
+	'\u00d4': C.E,
 };
 
 var DIGITS = {
@@ -167,6 +177,10 @@ return {
 						if (char === C._A_DIRGHA && peek(text, i+1, 'u')) {
 							char = C._O;
 							consumed += text[i+1]
+							i++;
+						} else if (char === C._A_DIRGHA && peek(text, i+1, 'v')) {
+							char = C._AU,
+							consumed += text[i+1];
 							i++;
 						}
 						out += char;
@@ -285,6 +299,18 @@ return {
 							out += C.VIRAMA;
 						}
 						break stringloop;
+					case '\u00eb': // LEFT SINGLE QUOTATION MARK
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += '\u2018';
+						}
+						break stringloop;
+					case '\u00ed': // RIGHT SINGLE QUOTATION MARK
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += '\u2019';
+						}
+						break stringloop;
 					default:
 						break stringloop;
 				}
@@ -328,7 +354,7 @@ return {
 	'elementToUnicode': function (element) {
 		function needsRecoding(element) {
 			var class_list = element.parentElement.classList;
-			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19'];
+			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's22', 's23'];
 			for (i=0; i<roman_classes.length; i++) {
 				if (class_list.contains(roman_classes[i]))
 					return false;
