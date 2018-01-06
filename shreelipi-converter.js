@@ -52,6 +52,7 @@ var C = {
 var INCOMPLETE_CONSONANT = {
 	'A': C.KHA,
 	'B': C.GA,
+	'\u2044': C.LA,
 	'\\': C.VA,
 	'Y': C.YA,
 	'E': C.CA,
@@ -63,6 +64,7 @@ var INCOMPLETE_CONSONANT = {
 	'_': C.SA,
 	'b': C.KA + C.VIRAMA + C.SHA,
 	'e': C.TA + C.VIRAMA + C.RA,
+	'f': C.TA + C.VIRAMA + C.TA,
 	'O': C.TA,
 	'R': C.DHA,
 	'X': C.MA,
@@ -98,6 +100,11 @@ var COMPLETE_CONSONANT = {
 	'\u201a': C.HA + C._RI,
 	'\u00fb': C.DA + C.VIRAMA + C.GA,
 	'\u2021': C.RA + C._U,
+	'\u2122': C.DA + C._RI,
+	'\u00c8': C.TTHA + C.VIRAMA + C.YA,
+	'\u00d5': C.SHA + C.VIRAMA + C.TTA,
+	'\u00b4': C.DA + C.VIRAMA + C.DHA,
+	'\u00e5': C.NGA + C.VIRAMA + C.GA,
 };
 
 var COMBINING_SVARA = {
@@ -193,11 +200,17 @@ return {
 					out += DIGITS[text[i]];
 					break stringloop;
 				} else if (COMPLETE_CONSONANT.hasOwnProperty(text[i])) {
+					var char = COMPLETE_CONSONANT[text[i]]
 					consumed += text[i];
 					if (state === STATE.CONSONANT_WITHOUT_BAR) {
 						out += C.VIRAMA;
 					}
-					out += COMPLETE_CONSONANT[text[i]];
+					if (char === C.KA && peek(text, i+1, '}')) {
+						consumed += text[i+1];
+						i++;
+						char += C.VIRAMA + C.RA;
+					}
+					out += char;
 					state = STATE.COMPLETE_SYLLABLE;
 					if (got_tail_i) {
 						out += C._I;

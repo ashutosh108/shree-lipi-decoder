@@ -106,6 +106,14 @@
 			['\u00ed', '\u2019', 'RIGHT SINGLE QUOTATION MARK'],
 			['@}\u00b0\u00ee', 'क्री', 'krI'],
 			['\u00da', 'इ', 'i'],
+			['\u2122', 'दृ', 'dR'],
+			['\u2044"', 'ल', 'la'],
+			['\u00c8', 'ठ्य', 'THya'],
+			['f"', 'त्त', 'tta'],
+			['\u00d5', 'ष्ट', 'STa'],
+			['\u00b4', 'द्ध', 'ddha'],
+			['\u00e5', 'ङ्ग', 'Gga (NGga)'],
+			['<@}', 'क्रि', 'kri'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);
