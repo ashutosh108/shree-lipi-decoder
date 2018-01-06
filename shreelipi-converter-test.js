@@ -114,6 +114,7 @@
 			['\u00b4', 'द्ध', 'ddha'],
 			['\u00e5', 'ङ्ग', 'Gga (NGga)'],
 			['<@}', 'क्रि', 'kri'],
+			['E"O"sQ{', 'चतुर्द', 'caturda'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

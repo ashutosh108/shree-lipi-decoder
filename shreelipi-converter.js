@@ -200,22 +200,26 @@ return {
 					out += DIGITS[text[i]];
 					break stringloop;
 				} else if (COMPLETE_CONSONANT.hasOwnProperty(text[i])) {
-					var char = COMPLETE_CONSONANT[text[i]]
-					consumed += text[i];
-					if (state === STATE.CONSONANT_WITHOUT_BAR) {
-						out += C.VIRAMA;
-					}
-					if (char === C.KA && peek(text, i+1, '}')) {
-						consumed += text[i+1];
-						i++;
-						char += C.VIRAMA + C.RA;
-					}
-					out += char;
-					state = STATE.COMPLETE_SYLLABLE;
-					if (got_tail_i) {
-						out += C._I;
-						got_tail_i = false;
-						state = STATE.COMPLETE_SYLLABLE_WITH_SVARA;
+					if (state === STATE.INIT || state === STATE.CONSONANT_WITHOUT_BAR) {
+						var char = COMPLETE_CONSONANT[text[i]]
+						consumed += text[i];
+						if (state === STATE.CONSONANT_WITHOUT_BAR) {
+							out += C.VIRAMA;
+						}
+						if (char === C.KA && peek(text, i+1, '}')) {
+							consumed += text[i+1];
+							i++;
+							char += C.VIRAMA + C.RA;
+						}
+						out += char;
+						state = STATE.COMPLETE_SYLLABLE;
+						if (got_tail_i) {
+							out += C._I;
+							got_tail_i = false;
+							state = STATE.COMPLETE_SYLLABLE_WITH_SVARA;
+						}
+					} else {
+						break stringloop;
 					}
 				} else if (COMPLETE_SVARA.hasOwnProperty(text[i])) {
 					if (state === STATE.INIT) {
