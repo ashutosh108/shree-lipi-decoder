@@ -18,6 +18,7 @@ var C = {
 	DHA: 'ध',
 	NA: 'न',
 	PA: 'प',
+	PHA: 'फ',
 	BA: 'ब',
 	BHA: 'भ',
 	MA: 'म',
@@ -47,6 +48,7 @@ var C = {
 	VIRAMA: '्',
 	ANUSVARA: 'ं',
 	VISARGA: 'ः',
+	AVAGRAHA: 'ऽ',
 };
 
 var INCOMPLETE_CONSONANT = {
@@ -89,6 +91,7 @@ var COMPLETE_CONSONANT = {
 	'[': C.LA,
 	'`': C.HA,
 	'Q': C.DA,
+	'U': C.PHA,
 	'.': '.',
 	'\u00c1': C.DA + C.VIRAMA + C.RA,
 	'\u00e4': C.NGA + C.VIRAMA + C.KA,
@@ -105,6 +108,9 @@ var COMPLETE_CONSONANT = {
 	'\u00d5': C.SHA + C.VIRAMA + C.TTA,
 	'\u00b4': C.DA + C.VIRAMA + C.DHA,
 	'\u00e5': C.NGA + C.VIRAMA + C.GA,
+	'\u0152': C.SHA + C.VIRAMA + C.TTHA,
+	'\u00d8': C.DA + C.VIRAMA + C.DHA,
+	'\u00b1': C.KA + C.VIRAMA + C.LA,
 };
 
 var COMBINING_SVARA = {
@@ -299,6 +305,7 @@ return {
 					case '(':
 					case ')':
 					case '-': // hyphen
+					case '?': // question mark
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += text[i];
@@ -308,6 +315,12 @@ return {
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += '।';
+						}
+						break stringloop;
+					case '&': // avagraha
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += C.AVAGRAHA;
 						}
 						break stringloop;
 					case 'o': // virama
@@ -328,6 +341,15 @@ return {
 							out += '\u2019';
 						}
 						break stringloop;
+					case '\u02dc': // combining '-ya', can go after either incomplete or complete consonant
+						if (state === STATE.CONSONANT_WITHOUT_BAR || state === STATE.COMPLETE_SYLLABLE) {
+							consumed += text[i];
+							out += C.VIRAMA + C.YA;
+							state = STATE.COMPLETE_SYLLABLE;
+							break;
+						} else {
+							break stringloop;
+						}
 					default:
 						break stringloop;
 				}

@@ -115,6 +115,14 @@
 			['\u00e5', 'ङ्ग', 'Gga (NGga)'],
 			['<@}', 'क्रि', 'kri'],
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
+			['\u0152', 'ष्ठ', 'STHa'],
+			['&', 'ऽ', 'avagraha'],
+			['U°', 'फ', 'pha'],
+			['\u00fc\u02dc', 'द्व्य', 'dvya'],
+			['\u00fc\u02dcp', 'द्व्या', 'dvyA'],
+			['\u00d8', 'द्ध', 'ddha'],
+			['?', '?', 'question mark'],
+			['\u00b1', 'क्ल', 'kla'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);
