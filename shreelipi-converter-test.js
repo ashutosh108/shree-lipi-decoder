@@ -123,6 +123,10 @@
 			['\u00d8', 'द्ध', 'ddha'],
 			['?', '?', 'question mark'],
 			['\u00b1', 'क्ल', 'kla'],
+			['\u00a0"', 'प्त', 'pta'],
+			[' "', 'प्त', 'pta (recovered)'],
+			['\n', '\n', 'newline'],
+			['\u00f1', '\u2013', 'en-dash'], // Mac: 0x96
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

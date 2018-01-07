@@ -79,6 +79,7 @@ var INCOMPLETE_CONSONANT = {
 	'^': C.SHA,
 	'c': C.JA + C.VIRAMA + C.NYA,
 	'\u2206': C.ZA + C.VIRAMA + C.CA,
+	'\u00a0': C.PA + C.VIRAMA + C.TA,
 };
 
 var COMPLETE_CONSONANT = {
@@ -166,7 +167,7 @@ return {
 			var out = '';
 			stringloop:
 			for (var i = 0; i<text.length; i++) {
-				if (/\s/.test(text[i])) {
+				if (/[ \t\n]/.test(text[i])) {
 					consumed += text[i];
 					out += text[i];
 					break stringloop;
@@ -350,6 +351,12 @@ return {
 						} else {
 							break stringloop;
 						}
+					case '\u00f1': // Mac: 0x96, en-dash
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += '–';
+						}
+						break stringloop;
 					default:
 						break stringloop;
 				}
@@ -363,6 +370,9 @@ return {
 
 		// fix wrongly disassembled ligature
 		text = text.replace('fl', '\u00df');
+
+		// fix some of the lost 0xCA/NBSP chars which was errorneously replaced by space
+		text = text.replace(' "', '\u00a0"');
 
 		newText = '';
 		while (text !== '') {
