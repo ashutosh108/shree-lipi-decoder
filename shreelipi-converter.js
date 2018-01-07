@@ -55,6 +55,8 @@ var C = {
 	_AI: 'ै',
 	_O: 'ो',
 	_AU: 'ौ',
+	_CANDRA_E: 'ॅ',
+	_CANDRABINDU: 'ँ',
 	VIRAMA: '्',
 	ANUSVARA: 'ं',
 	VISARGA: 'ः',
@@ -86,7 +88,10 @@ var INCOMPLETE_CONSONANT = {
 	'X': C.MA,
 	'S': C.NA,
 	'\u00df': C.NA + C.VIRAMA + C.NA,
-	'\u00c4': C.NYA + C.VIRAMA + C.JA,
+	'\u00c4': C.NYA + C.VIRAMA + C.JA, // Mac: 128, Ä, U+00C4
+	'\u00c5': C.NYA + C.VIRAMA + C.CA, // Mac: 129, Å, U+00C5
+	'\u00c7': C.CA + C.VIRAMA + C.CA, // Mac: 130, Ç, U+00C7
+	'\u00c9': C.JA + C.VIRAMA + C.JA, // Mac: 131, É, U+00C9
 	'P': C.THA,
 	'\u2014': C.TA + C.VIRAMA + C.NA,
 	']': C.ZA,
@@ -112,8 +117,6 @@ var COMPLETE_CONSONANT = {
 	'Q': C.DA,
 	'U': C.PHA,
 	'\u00c1': C.DA + C.VIRAMA + C.RA,
-	'\u00e4': C.NGA + C.VIRAMA + C.KA,
-	'\u00e0': C.HA + C.VIRAMA + C.VA,
 	'\u00f5': C.DDA + C.VIRAMA + C.DDA,
 	'\u00f9': C.DA + C.VIRAMA + C.YA,
 	'\u00fc': C.DA + C.VIRAMA + C.VA,
@@ -125,10 +128,21 @@ var COMPLETE_CONSONANT = {
 	'\u00c8': C.TTHA + C.VIRAMA + C.YA,
 	'\u00d5': C.SHA + C.VIRAMA + C.TTA,
 	'\u00b4': C.DA + C.VIRAMA + C.DHA,
-	'\u00e5': C.NGA + C.VIRAMA + C.GA,
 	'\u0152': C.SHA + C.VIRAMA + C.TTHA,
 	'\u00d8': C.DA + C.VIRAMA + C.DHA,
 	'\u00b1': C.KA + C.VIRAMA + C.LA,
+	'\u00D1': C.LA + C.VIRAMA + C.LA, // Mac: 132, Ñ, U+00D1
+	'\u00D6': C.HA + C.VIRAMA + C.NA, // Mac: 133, Ö, U+00D6
+	'\u00DC': C.HA + C.VIRAMA + C.NNA, // Mac: 134, Ü, U+00DC
+	'\u00E1': C.HA + C.VIRAMA + C.LA, // Mac: 135, á, U+00E1
+	'\u00e0': C.HA + C.VIRAMA + C.VA, // Mac: 136, à, U+00E0
+	'\u00E2': C.DDA + C.VIRAMA + C.DDHA, // Mac: 137, â, U+00E2
+	'\u00E4': C.NGA + C.VIRAMA + C.KA, // Mac: 138, ä, U+00E4
+	'\u00E3': C.NGA + C.VIRAMA + C.KHA, // Mac: 139, ã, U+00E3
+	'\u00E5': C.NGA + C.VIRAMA + C.GA, // Mac: 140, å, U+00E5
+	'\u00E7': C.NGA + C.VIRAMA + C.GHA, // Mac: 141, ç, U+00E7
+	'\u00E9': C.NGA + C.VIRAMA + C.MA, // Mac: 142, é, U+00E9
+	'\u00E8': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.SHA, // Mac: 143, è, U+00E8
 };
 
 var COMBINING_SVARA = {
@@ -143,6 +157,7 @@ var COMBINING_SVARA = {
 	'%': C._RRI,
 	'u': C._E,
 	'v': C._AI,
+	'x': C._CANDRA_E,
 };
 
 var COMPLETE_SVARA = {
@@ -178,6 +193,7 @@ return {
 
 
 			var got_tail_i = false;
+			var tail_i_char = null;
 			var STATE = {
 				INIT: 1,
 				CONSONANT_WITHOUT_BAR: 2,
@@ -281,6 +297,7 @@ return {
 					case '\u00ec': // tail i hrasva (even longer version, used in sti)
 						if (state === STATE.INIT && !got_tail_i) {
 							got_tail_i = true;
+							tail_i_char = text[i];
 							consumed += text[i];
 						} else {
 							break stringloop;
@@ -305,17 +322,24 @@ return {
 						consumed += text[i];
 						break;
 					case '}': // combining ra (used after ka)
+					case '~': // combining -ra (rakara, like a caret under the char)
 						if (state === STATE.COMPLETE_SYLLABLE) {
 							consumed += text[i];
 							out += C.VIRAMA + C.RA;
 							break;
-						} else {
-							break stringloop
 						}
+						break stringloop
 					case 'n': // combining -na (used e.g. after pa)
 						if (state === STATE.COMPLETE_SYLLABLE) {
 							consumed += text[i];
 							out += C.VIRAMA + C.NA;
+							break;
+						}
+						break stringloop
+					case 'y': // combining candrabindu
+						if (state === STATE.COMPLETE_SYLLABLE) {
+							consumed += text[i];
+							out += C._CANDRABINDU;
 							break;
 						}
 						break stringloop
@@ -395,7 +419,7 @@ return {
 							out += '–';
 						}
 						break stringloop;
-					case 'k': // CANDRABINU VIRAMA
+					case 'k': // CANDRABINDU VIRAMA
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += C.CANDRABINDU_VIRAMA;
@@ -407,7 +431,7 @@ return {
 			}
 			// string finished and we never got a chance to append svara "i": mark an error
 			if (got_tail_i) {
-				out += '!<!';
+				out += '!' + tail_i_char + '!';
 			}
 			return {'consumed': consumed, 'out': out};
 		}

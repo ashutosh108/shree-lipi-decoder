@@ -87,9 +87,60 @@
 			['`m', 'हू', 'huu'], // Mac: 109, m
 			['n', '!n!', 'unexpected comining -n'], // Mac: 110, n
 			['T"n', 'प्न', 'pna'], // Mac: 110, n
-			['\\"p', 'वा'],
-			['Y"s', 'यु'],
-			['Y"t', 'यू'],
+			['o', '!o!', 'unexpected virama'], // Mac: 111, o
+			['O"o', 'त्', 't+virama'], // Mac: 111, o
+			['p', '!p!', 'unexpected vertical bar'], // Mac: 112, p
+			['\\"p', 'वा', 'vaa'], // Mac: 112, p
+			['q', '!q!', 'unexpected combining i'], // Mac: 113, q
+			['qZ', 'रि', 'ri'], // Mac: 113, q
+			['r', '!r!', 'unexpected combining ii'], // Mac: 114, r
+			['dr', 'श्री', 'zrI'], // Mac: 114, r
+			['s', '!s!', 'unexpected combining u'], // Mac: 115, s
+			['Y"s', 'यु', 'yu'], // Mac: 115, s
+			['t', '!t!', 'unexpected combining uu'], // Mac: 116, t
+			['Y"t', 'यू', 'yuu'],  // Mac: 116, t
+			['u', '!u!', 'unexpected combining hook for e and o'], // Mac: 117, u
+			['\\"u', 'वे', 've'], // Mac: 117, u
+			['Qpu', 'दो', 'do'], // Mac: 117, u
+			['v', '!v!', 'unexpected combining hook for ai and au'], // Mac: 118, v
+			['Qv', 'दै', 'dai'], // Mac: 118, v
+			['Qpv', 'दौ', 'dau'], // Mac: 118, v
+			['w', '!w!', 'unexpected combining ri'], // Mac: 119, w
+			['X"w', 'मृ', 'mR'], // Mac: 119, w
+			['x', '!x!', 'unexpected combining candra e'], // Mac: 120, x
+			['X"x', 'मॅ', 'm+candra e'], // Mac: 120, x
+			['y', '!y!', 'unexpected combining candrabindu'], // Mac: 121, y
+			['X"y', 'मँ', 'm+candrabindu'], // Mac: 121, y
+			['z', '!z!', 'unexpected combining anusvara'], // Mac: 122, z
+			['X"z', 'मं', 'maM'], // Mac: 122, z
+			['V"wz', 'बृं', 'bRM'], // Mac: 122, z
+			['{', '!{!', 'unexpected combining r-'], // Mac: 123, {
+			['YY"{', 'र्य्य', 'ryya (as in acaryya)'], // Mac: 123, {
+			['|', '!|!', 'unexpected combining r+anusvara'], // Mac: 124, |
+			['P"|', 'र्थं', 'rthaM'], // Mac: 124, |
+			['}', '!}!', 'unexpected combining -r'], // Mac: 125, }
+			['@}\u00b0\u00ee', 'क्री', 'krI'], // Mac: 125, }
+			['<@}', 'क्रि', 'kri'], // Mac: 125, }
+			['~', '!~!', 'unexpected combining rakara'], // Mac: 126, ~
+			['EF~>', 'च्छ्र', 'cchra'], // Mac: 126, ~
+
+			['\u00c4"', 'ञ्ज', 'Nja'], // Mac: 128, Ä, U+00C4
+			['\u00c5"', 'ञ्च', 'Nca'], // Mac: 129, Å, U+00C5‚
+			['\u00c7"', 'च्च', 'cca'], // Mac: 130, Ç, U+00C7
+			['\u00c9"', 'ज्ज', 'jja'], // Mac: 131, É, U+00C9
+			['\u00D1', 'ल्ल', 'lla'], // Mac: 132, Ñ, U+00D1
+			['\u00D6', 'ह्न', 'hna'], // Mac: 133, Ö, U+00D6
+			['\u00DC', 'ह्ण', 'hNa'], // Mac: 134, Ü, U+00DC
+			['\u00E1', 'ह्ल', 'hla'], // Mac: 135, á, U+00E1
+			['\u00E0', 'ह्व', 'hva'], // Mac: 136, à, U+00E0
+			['\u00E2', 'ड्ढ', 'DDHA'], // Mac: 137, â, U+00E2
+			['\u00E4', 'ङ्क', 'ngka'], // Mac: 138, ä, U+00E4
+			['\u00E3', 'ङ्ख', 'ngkha'], // Mac: 139, ã, U+00E3
+			['\u00E5', 'ङ्ग', 'ngga'], // Mac: 140, å, U+00E5
+			['\u00E7', 'ङ्घ', 'nggha'], // Mac: 141, ç, U+00E7
+			['\u00E9', 'ङ्म', 'ngma'], // Mac: 142, é, U+00E9
+			['\u00E8', 'ङ्क्ष', 'ngksha'], // Mac: 143, è, U+00E8
+
 			['_O"s', 'स्तु'],
 			['Y"ss', 'यु!s!', 'Second combining vowel is invalid'],
 			['X"##', 'मः!#!'],
@@ -97,39 +148,24 @@
 			['\u0009', '\u0009', 'tab'],
 			[' \u0009', ' \u0009', 'space+tab'],
 			['1', '१', 'digit "one"'],
-			['dr', 'श्री', 'zrI'],
-			['YY"{', 'र्य्य', 'ryya (as in acaryya)'],
-			['<Z', 'रि', 'ri'],
-			['qZ', 'रि', 'ri'],
 			// ['\u00df', 'न्न', 'nna'],
 			// ['\u20ac"', 'ञ्ज', 'Nja'],
 			// ['\u20ac"u', 'ञ्जे', 'Nje'],
-			['Qpu', 'दो', 'do'],
-			['Qv', 'दै', 'dai'],
-			['Qpv', 'दौ', 'dau'],
 			// Array('<O"#', 'तिः'),
 			// Array('dr', 'श्री'),
 			// Array('<e"', 'त्रि')
-			['X"w', 'मृ', 'mR'],
 			['\u00cf', 'अ', 'a'],
 			['\u00cfp', 'आ', 'aa'],
 			['\u00c1', 'द्र', 'dra'],
-			['\u00e4', 'ङ्क', 'ngka'],
 			['fl"', 'न्न', 'nna'],
-			['\u00c4', 'ञ्ज', 'Nja'],
-			['\u00e0', 'ह्व', 'hva'],
 			['\u00f9', 'द्य', 'dya'],
 			['\u2014"', 'त्न', 'tna'],
 			['\u2260', 'द्म', 'dma'],
-			['@\u00b0o\u00b0', 'क्', 'k+virama'],
-			['X"z', 'मं', 'maM'],
 			['\u201a', 'हृ', 'hR'],
 			['\u00cc', 'उ', 'u'],
 			['\u00fb', 'द्ग', 'dga'],
 			['\u00fbl', 'द्गु', 'dgu'],
 			['\u2021', 'रु', 'ru'],
-			['P"|', 'र्थं', 'rthaM'],
-			['V"wz', 'बृं', 'bRM'],
 			['\u00ec_O"', 'स्ति', 'sti'],
 			['\u00fc', 'द्व', 'dva'],
 			['\u2206', 'श्च', 'zca'],
@@ -137,15 +173,12 @@
 			['\u00d4', 'ए', 'e'],
 			['\u00eb', '\u2018', 'LEFT SINGLE QUOTATION MARK'],
 			['\u00ed', '\u2019', 'RIGHT SINGLE QUOTATION MARK'],
-			['@}\u00b0\u00ee', 'क्री', 'krI'],
 			['\u00da', 'इ', 'i'],
 			['\u2122', 'दृ', 'dR'],
 			['\u2044"', 'ल', 'la'],
 			['\u00c8', 'ठ्य', 'THya'],
 			['\u00d5', 'ष्ट', 'STa'],
 			['\u00b4', 'द्ध', 'ddha'],
-			['\u00e5', 'ङ्ग', 'Gga (NGga)'],
-			['<@}', 'क्रि', 'kri'],
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
 			['\u0152', 'ष्ठ', 'STHa'],
 			['\u00fc\u02dc', 'द्व्य', 'dvya'],
