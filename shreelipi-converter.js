@@ -1,16 +1,21 @@
 $slc = (function() {
 
 var C = {
+	OM: 'ॐ',
 	KA: 'क',
 	KHA: 'ख',
 	GA: 'ग',
+	GHA: 'घ',
 	NGA: 'ङ',
 	CA: 'च',
-	NYA: 'ञ',
+	CHA: 'छ',
 	JA: 'ज',
+	JHA: 'झ',
+	NYA: 'ञ',
 	TTA: 'ट',
 	TTHA: 'ठ',
 	DDA: 'ड',
+	DDHA: 'ढ',
 	NNA: 'ण',
 	TA: 'त',
 	THA: 'थ',
@@ -25,6 +30,7 @@ var C = {
 	YA: 'य',
 	RA: 'र',
 	LA: 'ल',
+	LLA: 'ळ',
 	VA: 'व',
 	ZA: 'श',
 	SHA: 'ष',
@@ -35,12 +41,16 @@ var C = {
 	I: 'इ',
 	U: 'उ',
 	E: 'ए',
+	RI: 'ऋ',
+	RRI: 'ॠ',
+	LI: 'ऌ',
 	_A_DIRGHA: 'ा',
 	_I: 'ि',
 	_I_DIRGHA: 'ी',
 	_U: 'ु',
 	_U_DIRGHA: 'ू',
 	_RI: 'ृ',
+	_RRI: 'ॄ',
 	_E: 'े',
 	_AI: 'ै',
 	_O: 'ो',
@@ -49,11 +59,15 @@ var C = {
 	ANUSVARA: 'ं',
 	VISARGA: 'ः',
 	AVAGRAHA: 'ऽ',
+	CANDRABINDU_VIRAMA: '\uA8F3',
 };
 
 var INCOMPLETE_CONSONANT = {
 	'A': C.KHA,
 	'B': C.GA,
+	'C': C.GHA,
+	'H': C.JHA,
+	'I': C.NYA,
 	'\u2044': C.LA,
 	'\\': C.VA,
 	'Y': C.YA,
@@ -83,17 +97,20 @@ var INCOMPLETE_CONSONANT = {
 };
 
 var COMPLETE_CONSONANT = {
+	'D': C.NGA,
+	'F': C.CHA,
 	'd': C.ZA + C.VIRAMA + C.RA,
 	'@': C.KA,
 	'J': C.TTA,
 	'K': C.TTHA,
 	'L': C.DDA,
+	'M': C.DDHA,
 	'Z': C.RA,
 	'[': C.LA,
+	'a': C.LLA,
 	'`': C.HA,
 	'Q': C.DA,
 	'U': C.PHA,
-	'.': '.',
 	'\u00c1': C.DA + C.VIRAMA + C.RA,
 	'\u00e4': C.NGA + C.VIRAMA + C.KA,
 	'\u00e0': C.HA + C.VIRAMA + C.VA,
@@ -118,15 +135,21 @@ var COMBINING_SVARA = {
 	'p': C._A_DIRGHA,
 	'r': C._I_DIRGHA,
 	'\u00ee': C._I_DIRGHA, // longer version, used in 'krI'
-	's': C._U,
 	'l': C._U,
+	'm': C._U_DIRGHA,
+	's': C._U,
 	't': C._U_DIRGHA,
 	'w': C._RI,
+	'%': C._RRI,
 	'u': C._E,
 	'v': C._AI,
 };
 
 var COMPLETE_SVARA = {
+	'g': C.OM,
+	'h': C.RI,
+	'i': C.RRI,
+	'j': C.LI,
 	'\u00cf': C.A,
 	'\u00da': C.I,
 	'\u00cc': C.U,
@@ -289,6 +312,13 @@ return {
 						} else {
 							break stringloop
 						}
+					case 'n': // combining -na (used e.g. after pa)
+						if (state === STATE.COMPLETE_SYLLABLE) {
+							consumed += text[i];
+							out += C.VIRAMA + C.NA;
+							break;
+						}
+						break stringloop
 					case '{': // combining start ra (hook above the line)
 						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.COMPLETE_SYLLABLE_WITH_SVARA) {
 							consumed += text[i];
@@ -307,6 +337,14 @@ return {
 					case ')':
 					case '-': // hyphen
 					case '?': // question mark
+					case '!': // exclamation
+					case '*': // asterisk
+					case '+': // plus
+					case '.': // dot (full stop)
+					case '/': // forward slash
+					case ':': // colon
+					case ';': // semicolon
+					case '=': // equal
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += text[i];
@@ -355,6 +393,12 @@ return {
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += '–';
+						}
+						break stringloop;
+					case 'k': // CANDRABINU VIRAMA
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += C.CANDRABINDU_VIRAMA;
 						}
 						break stringloop;
 					default:
