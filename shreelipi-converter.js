@@ -117,12 +117,8 @@ var COMPLETE_CONSONANT = {
 	'Q': C.DA,
 	'U': C.PHA,
 	'\u00c1': C.DA + C.VIRAMA + C.RA,
-	'\u00f5': C.DDA + C.VIRAMA + C.DDA,
-	'\u00f9': C.DA + C.VIRAMA + C.YA,
-	'\u00fc': C.DA + C.VIRAMA + C.VA,
 	'\u2260': C.DA + C.VIRAMA + C.MA,
 	'\u201a': C.HA + C._RI,
-	'\u00fb': C.DA + C.VIRAMA + C.GA,
 	'\u2021': C.RA + C._U,
 	'\u2122': C.DA + C._RI,
 	'\u00c8': C.TTHA + C.VIRAMA + C.YA,
@@ -143,12 +139,21 @@ var COMPLETE_CONSONANT = {
 	'\u00E7': C.NGA + C.VIRAMA + C.GHA, // Mac: 141, ç, U+00E7
 	'\u00E9': C.NGA + C.VIRAMA + C.MA, // Mac: 142, é, U+00E9
 	'\u00E8': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.SHA, // Mac: 143, è, U+00E8
+	'\u00EA': C.CHA + C.VIRAMA + C.VA, // Mac: 144, ê, U+00EA
+	'\u00F2': C.KA + C.VIRAMA + C.TA, // Mac: 152, ò, U+00F2
+	'\u00F4': C.TTA + C.VIRAMA + C.TTA, // Mac: 153, ô, U+00F4
+	'\u00F6': C.TTHA + C.VIRAMA + C.TTHA, // Mac: 154, ö, U+00F6
+	'\u00F5': C.DDA + C.VIRAMA + C.DDA, // Mac: 155, õ, U+00F5
+	'\u00FA': C.DDHA + C.VIRAMA + C.DDHA, // Mac: 156, ú, U+00FA
+	'\u00F9': C.DA + C.VIRAMA + C.YA, // Mac: 157, ù, U+00F9
+	'\u00FB': C.DA + C.VIRAMA + C.GA, // Mac: 158, û, U+00FB
+	'\u00FC': C.DA + C.VIRAMA + C.VA, // Mac: 159, ü, U+00FC
 };
 
 var COMBINING_SVARA = {
 	'p': C._A_DIRGHA,
 	'r': C._I_DIRGHA,
-	'\u00ee': C._I_DIRGHA, // longer version, used in 'krI'
+	'\u00ee': C._I_DIRGHA, // Mac: 148, î, U+00EE longer version, used in 'krI'
 	'l': C._U,
 	'm': C._U_DIRGHA,
 	's': C._U,
@@ -294,7 +299,7 @@ return {
 						break;
 					case 'q': // tail i hrasva (shorter version)
 					case '<': // tail i hrasva (longer version)
-					case '\u00ec': // tail i hrasva (even longer version, used in sti)
+					case '\u00ec': // Mac: 147, ì, U+00EC tail i hrasva (even longer version, used in sti)
 						if (state === STATE.INIT && !got_tail_i) {
 							got_tail_i = true;
 							tail_i_char = text[i];
@@ -392,13 +397,13 @@ return {
 							out += C.VIRAMA;
 						}
 						break stringloop;
-					case '\u00eb': // LEFT SINGLE QUOTATION MARK
+					case '\u00eb': // Mac: 145, ë, U+00EB, LEFT SINGLE QUOTATION MARK
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += '\u2018';
 						}
 						break stringloop;
-					case '\u00ed': // RIGHT SINGLE QUOTATION MARK
+					case '\u00ed': // Mac: 146, í, U+00ED, RIGHT SINGLE QUOTATION MARK
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += '\u2019';
@@ -413,10 +418,16 @@ return {
 						} else {
 							break stringloop;
 						}
-					case '\u00f1': // Mac: 0x96, en-dash
+					case '\u00F1': // Mac: 150, ñ, U+00F1 en-dash
 						if (state === STATE.INIT) {
 							consumed += text[i];
 							out += '–';
+						}
+						break stringloop;
+					case '\u00F3': // Mac: 151, ó, U+00F3 em-dash
+						if (state === STATE.INIT) {
+							consumed += text[i];
+							out += '—';
 						}
 						break stringloop;
 					case 'k': // CANDRABINDU VIRAMA

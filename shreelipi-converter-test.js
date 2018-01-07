@@ -119,7 +119,7 @@
 			['|', '!|!', 'unexpected combining r+anusvara'], // Mac: 124, |
 			['P"|', 'र्थं', 'rthaM'], // Mac: 124, |
 			['}', '!}!', 'unexpected combining -r'], // Mac: 125, }
-			['@}\u00b0\u00ee', 'क्री', 'krI'], // Mac: 125, }
+			['@}', 'क्र', 'kra'], // Mac: 125, }
 			['<@}', 'क्रि', 'kri'], // Mac: 125, }
 			['~', '!~!', 'unexpected combining rakara'], // Mac: 126, ~
 			['EF~>', 'च्छ्र', 'cchra'], // Mac: 126, ~
@@ -140,6 +140,25 @@
 			['\u00E7', 'ङ्घ', 'nggha'], // Mac: 141, ç, U+00E7
 			['\u00E9', 'ङ्म', 'ngma'], // Mac: 142, é, U+00E9
 			['\u00E8', 'ङ्क्ष', 'ngksha'], // Mac: 143, è, U+00E8
+			['\u00EA', 'छ्व', 'chva'], // Mac: 144, ê, U+00EA
+			['\u00eb', '\u2018', 'LEFT SINGLE QUOTATION MARK'], // Mac: 145, ë, U+00EB
+			['\u00ed', '\u2019', 'RIGHT SINGLE QUOTATION MARK'], // Mac: 146, í, U+00ED
+			['\u00EC', '!\u00EC!', 'unexpected combining -i'], // Mac: 147, ì, U+00EC
+			['\u00EC_O"', 'स्ति', 'sti'], // Mac: 147, ì, U+00EC
+			['\u00EE', '!\u00EE!', 'unexpected combining -ii'], // Mac: 148, î, U+00EE
+			['@}\u00b0\u00EE', 'क्री', 'krI'], // Mac: 148, î, U+00EE
+			// Mac 149 is not implemented in SHREE960
+			['\u00F1', '\u2013', 'en-dash'], // Mac: 150, ñ, U+00F1
+			['\u00F3', '\u2014', 'em-dash'], // Mac: 151, ó, U+00F3
+			['\u00F2', 'क्त', 'kta'], // Mac: 152, ò, U+00F2
+			['\u00F4', 'ट्ट', 'TTa'], // Mac: 153, ô, U+00F4
+			['\u00F6', 'ठ्ठ', 'ThTha'], // Mac: 154, ö, U+00F6
+			['\u00F5', 'ड्ड', 'DDa'], // Mac: 155, õ, U+00F5
+			['\u00FA', 'ढ्ढ', 'DhDha'], // Mac: 156, ú, U+00FA
+			['\u00F9', 'द्य', 'dya'], // Mac: 157, ù, U+00F9
+			['\u00FB', 'द्ग', 'dga'], // Mac: 158, û, U+00FB
+			['\u00FBl', 'द्गु', 'dgu'], // Mac: 158, û, U+00FB
+			['\u00FC', 'द्व', 'dva'], // Mac: 159, ü, U+00FC
 
 			['_O"s', 'स्तु'],
 			['Y"ss', 'यु!s!', 'Second combining vowel is invalid'],
@@ -158,21 +177,13 @@
 			['\u00cfp', 'आ', 'aa'],
 			['\u00c1', 'द्र', 'dra'],
 			['fl"', 'न्न', 'nna'],
-			['\u00f9', 'द्य', 'dya'],
 			['\u2014"', 'त्न', 'tna'],
 			['\u2260', 'द्म', 'dma'],
 			['\u201a', 'हृ', 'hR'],
 			['\u00cc', 'उ', 'u'],
-			['\u00fb', 'द्ग', 'dga'],
-			['\u00fbl', 'द्गु', 'dgu'],
 			['\u2021', 'रु', 'ru'],
-			['\u00ec_O"', 'स्ति', 'sti'],
-			['\u00fc', 'द्व', 'dva'],
 			['\u2206', 'श्च', 'zca'],
-			['\u00f5', 'ड्ड', 'DDa'],
 			['\u00d4', 'ए', 'e'],
-			['\u00eb', '\u2018', 'LEFT SINGLE QUOTATION MARK'],
-			['\u00ed', '\u2019', 'RIGHT SINGLE QUOTATION MARK'],
 			['\u00da', 'इ', 'i'],
 			['\u2122', 'दृ', 'dR'],
 			['\u2044"', 'ल', 'la'],
@@ -188,7 +199,6 @@
 			['\u00a0"', 'प्त', 'pta'],
 			[' "', 'प्त', 'pta (recovered)'],
 			['\n', '\n', 'newline'],
-			['\u00f1', '\u2013', 'en-dash'], // Mac: 0x96
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);
