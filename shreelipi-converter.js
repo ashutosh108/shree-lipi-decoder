@@ -91,7 +91,6 @@ var INCOMPLETE_CONSONANT = {
 	'c': C.JA + C.VIRAMA + C.NYA,
 	'e': C.TA + C.VIRAMA + C.RA,
 	'f': C.TA + C.VIRAMA + C.TA,
-	'\u2044': C.LA,
 	'\uFB02': C.NA  + C.VIRAMA + C.NA,
 	'\u00c4': C.NYA + C.VIRAMA + C.JA, // Mac: 128, Ä, U+00C4
 	'\u00c5': C.NYA + C.VIRAMA + C.CA, // Mac: 129, Å, U+00C5
@@ -112,6 +111,13 @@ var INCOMPLETE_CONSONANT = {
 	'\u00F7': C.SA  + C.VIRAMA + C.TA + C.VIRAMA + C.RA, // Mac: 214, ÷, U+00F7
 	'\u25CA': C.KA,  // Mac: 215, ◊, U+25CA
 	'\u00FF': C.CHA, // Mac: 216, ÿ, U+00FF
+	'\u0178': C.PHA, // Mac: 217, Ÿ, U+0178
+	'\u2044': C.LA,  // Mac: 218, ⁄, U+2044
+	'\u20AC': C.LLA, // Mac: 219, €, U+20AC
+	'\u2039': C.ZA,  // Mac: 220, ‹, U+2039
+	'\u203A': C.JA,  // Mac: 221, ›, U+203A
+	'\uFB01': C.HA,  // Mac: 222, ﬁ, U+FB01
+	'\uFB02': C.NA  + C.VIRAMA + C.NA, // Mac: 223, ﬂ, U+FB02
 };
 
 var COMPLETE_CONSONANT = {
@@ -130,8 +136,6 @@ var COMPLETE_CONSONANT = {
 	'a': C.LLA,
 	'd': C.ZA + C.VIRAMA + C.RA,
 	'\u00c1': C.DA   + C.VIRAMA + C.RA,
-	'\u201a': C.HA   + C._RI,
-	'\u2021': C.RA   + C._U,
 	'\u00c8': C.TTHA + C.VIRAMA + C.YA,
 	'\u00D1': C.LA   + C.VIRAMA + C.LA,   // Mac: 132, Ñ, U+00D1
 	'\u00D6': C.HA   + C.VIRAMA + C.NA,   // Mac: 133, Ö, U+00D6
@@ -188,6 +192,11 @@ var COMPLETE_CONSONANT = {
 	'\u00C3': C.TTA  + C.VIRAMA + C.VA,   // Mac: 204, Ã, U+00C3
 	'\u00d5': C.SHA  + C.VIRAMA + C.TTA,  // Mac: 205, Õ, U+00D5
 	'\u0152': C.SHA  + C.VIRAMA + C.TTHA, // Mac: 206, Œ, U+0152
+	'\u2021': C.RA   + C._U,  // Mac: 224, ‡, U+2021
+	'\u00B7': C.RA   + C._U_DIRGHA, // Mac: 225, ·, U+00B7
+	'\u201A': C.HA   + C._RI, // Mac: 226, ‚, U+201A
+	'\u201E': C.HA   + C.VIRAMA + C.RA,   // Mac: 227, „, U+201E
+	'\u2030': C.PA   + C.VIRAMA + C.LA,   // Mac: 228, ‰, U+2030
 };
 
 var COMBINING_SVARA = {
