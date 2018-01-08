@@ -103,7 +103,15 @@ var INCOMPLETE_CONSONANT = {
 	'\u2206': C.ZA  + C.VIRAMA + C.CA, // Mac: 198, ∆, U+2206
 	'\u00A0': C.PA  + C.VIRAMA + C.TA, // Mac: 202, NBSP, U+00A0
 	'\u0153': C.HA  + C.VIRAMA + C.MA, // Mac: 207, œ, U+0153
-	'\u2014': C.TA  + C.VIRAMA + C.NA,
+	'\u2013': C.GA  + C.VIRAMA + C.NA, // Mac: 208, –, U+2013
+	'\u2014': C.TA  + C.VIRAMA + C.NA, // Mac: 209, —, U+2014
+	'\u201C': C.KA  + C.VIRAMA + C.TA, // Mac: 210, “, U+201C
+	'\u201D': C.KA  + C.VIRAMA + C.NA, // Mac: 211, ”, U+201D
+	'\u2018': C.KA  + C.VIRAMA + C.KA, // Mac: 212, ‘, U+2018
+	'\u2019': C.KA  + C.VIRAMA + C.VA, // Mac: 213, ’, U+2019
+	'\u00F7': C.SA  + C.VIRAMA + C.TA + C.VIRAMA + C.RA, // Mac: 214, ÷, U+00F7
+	'\u25CA': C.KA,  // Mac: 215, ◊, U+25CA
+	'\u00FF': C.CHA, // Mac: 216, ÿ, U+00FF
 };
 
 var COMPLETE_CONSONANT = {
