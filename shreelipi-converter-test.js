@@ -160,6 +160,28 @@
 			['\u00FBl', 'द्गु', 'dgu'], // Mac: 158, û, U+00FB
 			['\u00FC', 'द्व', 'dva'], // Mac: 159, ü, U+00FC
 			['\u2020', '\u00A0', 'nbsp'], // Mac: 160, †, U+2020
+			['\u00B0', '', 'mini space'], // Mac: 161, °, U+00B0
+			// not implemented (anudatta?) ['\u00A2', '', ''], // Mac: 162, ¢, U+00A2
+			// not implemented (another anudatta?) ['\u00A2', '', ''], // Mac: 162, £, U+00A3
+			// not implemented (combining wave?) ['\u00A7', '', ''], // Mac: 164, §, U+00A7
+			// not implemented (combining flat wave?) ['\u2022', '', ''], // Mac: 165, •, U+2022
+			// not implemented (combining line with small vertical line on the left?) ['\u00B6', '', ''], // Mac: 166, ¶, U+00B6
+			['\u00DF', '!\u00DF!', 'unexpected combining li'], // Mac: 167, ß, U+00DF
+			['X"\u00DF', 'मॢ', 'm+combining li'], // Mac: 167, ß, U+00DF
+			['\u00AE', 'द्ब', 'dba'], // Mac: 168, ®, U+u00AE
+			['\u00A9', 'द्द', 'dda'], // Mac: 169, ©, U+00A9
+			['\u2122', 'दृ', 'dR'], // Mac: 170, ™, U+2122
+			['\u00B4', 'द्ध', 'ddha'], // Mac: 171, ´, U+00B4
+			['\u00A8', 'द्भ', 'dbha'], // Mac: 172, ¨, U+00A8
+			['\u2260', 'द्म', 'dma'], // Mac: 173, ≠, U+2260
+			['\u00C6', 'स्त्र', 'stra'], // Mac: 174, Æ, U+00C6
+			['\u00D8', 'द्घ', 'dgha'], // Mac: 175, Ø, U+00D8
+			['\u221E', 'द्ब्र', 'dbra'], // Mac: 176, ∞, U+221E
+			['\u00B1', 'क्ल', 'kla'], // Mac: 177, ±, U+00B1
+			['\u2264', 'ङ्क्र', 'ng+k+ra'], // Mac: 178, ≤, U+2264
+			['\u2265', 'ङ्ग्र', 'ng+g+ra'], // Mac: 179, ≥, U+2265
+			['\u00A5', 'ङ्घ्र', 'ng+gh+ra'], // Mac: 180, ¥, U+00A5
+			['\u00B5', 'ङ्क्त', 'ng+k+ta'], // Mac: 181, µ, U+00B5
 
 			['_O"s', 'स्तु'],
 			['Y"ss', 'यु!s!', 'Second combining vowel is invalid'],
@@ -179,24 +201,19 @@
 			['\u00c1', 'द्र', 'dra'],
 			['fl"', 'न्न', 'nna'],
 			['\u2014"', 'त्न', 'tna'],
-			['\u2260', 'द्म', 'dma'],
 			['\u201a', 'हृ', 'hR'],
 			['\u00cc', 'उ', 'u'],
 			['\u2021', 'रु', 'ru'],
 			['\u2206', 'श्च', 'zca'],
 			['\u00d4', 'ए', 'e'],
 			['\u00da', 'इ', 'i'],
-			['\u2122', 'दृ', 'dR'],
 			['\u2044"', 'ल', 'la'],
 			['\u00c8', 'ठ्य', 'THya'],
 			['\u00d5', 'ष्ट', 'STa'],
-			['\u00b4', 'द्ध', 'ddha'],
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
 			['\u0152', 'ष्ठ', 'STHa'],
 			['\u00fc\u02dc', 'द्व्य', 'dvya'],
 			['\u00fc\u02dcp', 'द्व्या', 'dvyA'],
-			['\u00d8', 'द्ध', 'ddha'],
-			['\u00b1', 'क्ल', 'kla'],
 			['\u00a0"', 'प्त', 'pta'],
 			[' "', 'प्त', 'pta (recovered)'],
 			['\n', '\n', 'newline'],

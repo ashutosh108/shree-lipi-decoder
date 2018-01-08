@@ -51,6 +51,7 @@ var C = {
 	_U_DIRGHA: 'ू',
 	_RI: 'ृ',
 	_RRI: 'ॄ',
+	_LI: 'ॢ',
 	_E: 'े',
 	_AI: 'ै',
 	_O: 'ो',
@@ -87,7 +88,7 @@ var INCOMPLETE_CONSONANT = {
 	'R': C.DHA,
 	'X': C.MA,
 	'S': C.NA,
-	'\u00df': C.NA + C.VIRAMA + C.NA,
+	'\uFB02': C.NA + C.VIRAMA + C.NA,
 	'\u00c4': C.NYA + C.VIRAMA + C.JA, // Mac: 128, Ä, U+00C4
 	'\u00c5': C.NYA + C.VIRAMA + C.CA, // Mac: 129, Å, U+00C5
 	'\u00c7': C.CA + C.VIRAMA + C.CA, // Mac: 130, Ç, U+00C7
@@ -117,16 +118,11 @@ var COMPLETE_CONSONANT = {
 	'Q': C.DA,
 	'U': C.PHA,
 	'\u00c1': C.DA + C.VIRAMA + C.RA,
-	'\u2260': C.DA + C.VIRAMA + C.MA,
 	'\u201a': C.HA + C._RI,
 	'\u2021': C.RA + C._U,
-	'\u2122': C.DA + C._RI,
 	'\u00c8': C.TTHA + C.VIRAMA + C.YA,
 	'\u00d5': C.SHA + C.VIRAMA + C.TTA,
-	'\u00b4': C.DA + C.VIRAMA + C.DHA,
 	'\u0152': C.SHA + C.VIRAMA + C.TTHA,
-	'\u00d8': C.DA + C.VIRAMA + C.DHA,
-	'\u00b1': C.KA + C.VIRAMA + C.LA,
 	'\u00D1': C.LA + C.VIRAMA + C.LA, // Mac: 132, Ñ, U+00D1
 	'\u00D6': C.HA + C.VIRAMA + C.NA, // Mac: 133, Ö, U+00D6
 	'\u00DC': C.HA + C.VIRAMA + C.NNA, // Mac: 134, Ü, U+00DC
@@ -148,6 +144,20 @@ var COMPLETE_CONSONANT = {
 	'\u00F9': C.DA + C.VIRAMA + C.YA, // Mac: 157, ù, U+00F9
 	'\u00FB': C.DA + C.VIRAMA + C.GA, // Mac: 158, û, U+00FB
 	'\u00FC': C.DA + C.VIRAMA + C.VA, // Mac: 159, ü, U+00FC
+	'\u00AE': C.DA + C.VIRAMA + C.BA, // Mac: 168, ®, U+u00AE
+	'\u00A9': C.DA + C.VIRAMA + C.DA, // Mac: 169, ©, U+00A9
+	'\u2122': C.DA + C._RI, // Mac: 170, ™, U+2122
+	'\u00B4': C.DA + C.VIRAMA + C.DHA, // Mac: 171, ´, U+00B4
+	'\u00A8': C.DA + C.VIRAMA + C.BHA, // Mac: 172, ¨, U+00A8
+	'\u2260': C.DA + C.VIRAMA + C.MA, // Mac: 173, ≠, U+2260
+	'\u00C6': C.SA + C.VIRAMA + C.TA + C.VIRAMA + C.RA, // Mac: 174, Æ, U+00C6
+	'\u00d8': C.DA + C.VIRAMA + C.GHA, // Mac: 175, Ø, U+00D8
+	'\u221E': C.DA + C.VIRAMA + C.BA + C.VIRAMA + C.RA, // Mac: 176, ∞, U+221E
+	'\u00B1': C.KA + C.VIRAMA + C.LA, // Mac: 177, ±, U+00B1
+	'\u2264': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.RA, // Mac: 178, ≤, U+2264
+	'\u2265': C.NGA + C.VIRAMA + C.GA + C.VIRAMA + C.RA, // Mac: 179, ≥, U+2265
+	'\u00A5': C.NGA + C.VIRAMA + C.GHA + C.VIRAMA + C.RA, // Mac: 180, ¥, U+00A5
+	'\u00B5': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.TA, // Mac: 181, µ, U+00B5
 };
 
 var COMBINING_SVARA = {
@@ -160,6 +170,7 @@ var COMBINING_SVARA = {
 	't': C._U_DIRGHA,
 	'w': C._RI,
 	'%': C._RRI,
+	'\u00DF': C._LI, // Mac: 167, ß, U+00DF
 	'u': C._E,
 	'v': C._AI,
 	'x': C._CANDRA_E,
@@ -350,7 +361,7 @@ return {
 							out += C.VISARGA;
 						}
 						break stringloop;
-					case '\u00b0': // small space (used after ka)
+					case '\u00b0': // Mac: 161, °, U+00B0 small space (used after ka)
 					case '>': // small space (used after dda)
 						consumed += text[i];
 						break;
@@ -415,7 +426,7 @@ return {
 		}
 
 		// fix wrongly disassembled ligature
-		text = text.replace('fl', '\u00df');
+		text = text.replace('fl', '\uFB02');
 
 		// fix some of the lost 0xCA/NBSP chars which was errorneously replaced by space
 		text = text.replace(' "', '\u00a0"');
