@@ -291,6 +291,7 @@
 			['Y"{h°', 'र्यऋ', 'ryaR'],
 			['TY"pp', 'प्या', 'pya with extra -a at the end'],
 			['Bp', 'ग', 'ga (with p instead of " to complete the consonant)'],
+			['BY}"', 'ग्र्य', 'grya'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

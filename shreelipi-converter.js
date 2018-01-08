@@ -440,6 +440,12 @@ return {
 						consumed += text[i];
 						break;
 					case '}': // combining ra (used after ka)
+						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.CONSONANT_WITHOUT_BAR) {
+							consumed += text[i];
+							out = out.substring(0, out.length-1) + C.RA + C.VIRAMA + out.substring(out.length-1);
+							break;
+						}
+						break stringloop
 					case '~': // combining -ra (rakara, like a caret under the char)
 						if (state === STATE.COMPLETE_SYLLABLE) {
 							consumed += text[i];
