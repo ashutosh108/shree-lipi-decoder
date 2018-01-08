@@ -118,7 +118,7 @@ var INCOMPLETE_CONSONANT = {
 	'\u00FF': C.CHA, // Mac: 216, ÿ, U+00FF
 	'\u0178': C.PHA, // Mac: 217, Ÿ, U+0178
 	'\u2044': C.LA,  // Mac: 218, ⁄, U+2044
-	'\u20AC': C.LLA, // Mac: 219, €, U+20AC
+	'\u00A4': C.LLA, // Mac: 219, €/¤, U+20AC/U+00A4
 	'\u2039': C.ZA,  // Mac: 220, ‹, U+2039
 	'\u203A': C.JA,  // Mac: 221, ›, U+203A
 	'\uFB01': C.HA,  // Mac: 222, ﬁ, U+FB01
@@ -390,6 +390,8 @@ return {
 						}
 						out += char;
 						state = STATE.COMPLETE_SVARA;
+					} else {
+						break stringloop;
 					}
 				} else if (COMPLETE_CHARS.hasOwnProperty(text[i])) {
 					if (state === STATE.INIT) {
@@ -512,6 +514,7 @@ return {
 				consumed = ''; out = '';
 			}
 
+
 			return {'consumed': consumed, 'out': out};
 		}
 
@@ -519,7 +522,7 @@ return {
 		text = text.replace(/fl/g, '\uFB02');
 
 		// fix some of the lost 0xCA/NBSP chars which was errorneously replaced by space
-		text = text.replace(/ "/g, '\u00a0"');
+		text = text.replace(/ ? "/g, '\u00a0"');
 
 		newText = '';
 		while (text !== '') {
@@ -550,7 +553,7 @@ return {
 	'elementToUnicode': function (element) {
 		function needsRecoding(element) {
 			var class_list = element.parentElement.classList;
-			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's22', 's23', 's25', 's26'];
+			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's22', 's23', 's25', 's26', 's32'];
 			var malayam_classes = ['s28'];
 			for (var i=0; i<roman_classes.length; i++) {
 				if (class_list.contains(roman_classes[i]))

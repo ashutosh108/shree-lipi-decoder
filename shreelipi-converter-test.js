@@ -220,7 +220,7 @@
 			['\u00FF"', 'छ', 'ch+a'], // Mac: 216, ÿ, U+00FF
 			['\u0178"', 'फ', 'ph+a'], // Mac: 217, Ÿ, U+0178
 			['\u2044"', 'ल', 'l+a'], // Mac: 218, ⁄, U+2044
-			['\u20AC"', 'ळ', 'll+a'], // Mac: 219, €, U+20AC
+			['\u00A4"', 'ळ', 'll+a'], // Mac: 219, €/¤, U+20AC/U+00A4
 			['\u2039"', 'श', 'z+a'], // Mac: 220, ‹, U+2039
 			['\u203A"', 'ज', 'j+a (?)'], // Mac: 221, ›, U+203A
 			['\uFB01"', 'ह', 'ha+a'], // Mac: 222, ﬁ, U+FB01
@@ -286,6 +286,8 @@
 			[' " "', 'प्तप्त', 'ptapta (recovered, make sure that all \' "\' occurences are replaced)'],
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
 			['\n', '\n', 'newline'],
+			['<  "', 'प्ति', 'pti: make sure we accept double spaces before the \'"\' as well'],
+			['Y"{h°', 'र्यऋ', 'ryaR'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);
