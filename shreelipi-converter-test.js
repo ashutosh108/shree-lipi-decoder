@@ -241,6 +241,24 @@
 			['\u00CFp', 'आ', 'aa'], // Mac: 236, Ï, U+00CF
 			['\u00CFpu', 'ओ', 'o'], // Mac: 236, Ï, U+00CF
 			['\u00CFpv', 'औ', 'au'], // Mac: 236, Ï, U+00CF
+			['\u00CC', 'उ', 'u'], // Mac: 237, Ì, U+00CC
+			['\u00D3', 'ऊ', 'uu'], // Mac: 238, Ó, U+00D3
+			['\u00D4', 'ए', 'e'], // Mac: 239, Ô, U+00D4
+			['\u00D4u', 'ऐ', 'ai'], // Mac: 239, Ô, U+00D4
+			// combining udatta(?) not implemented ['\uF8FF', '', ''], // Mac: 240, , U+F8FF
+			// combining udatta(?) not implemented ['\u00D2', '', ''], // Mac: 241, Ò, U+00D2
+			['\u00DA', 'इ', 'i'], // Mac: 242, Ú, U+00DA
+			['\u00DA{', 'ई', 'ii'], // Mac: 242, Ú, U+00DA
+			['\u00DA|', 'ईं', 'iiM'], // Mac: 242, Ú, U+00DA
+			['\u00DB', 'श', 'za (alternative)'], // Mac: 243, Û, U+00DB
+			['\u00D9', 'द्भ्र', 'dbhra'], // Mac: 244, Ù, U+00D9
+			['\u0131', '!\u0131!', 'unexpected combining -r'], // Mac: 245, ı, U+0131
+			['I\u0131"', 'ञ्र', 'NY+r+a'], // Mac: 245, ı, U+0131 artificial test case (unclear when it is actually used, but looks OK when inserted before the bar)
+			['\u02C6', '!\u02C6!', 'unexpected combining -n'], // Mac: 246, ˆ, U+02C6
+			['I\u02C6"', 'ञ्न', 'NY+n+a'], // Mac: 246, ˆ, U+02C6
+			['\u02DC', '!\u02DC!', 'unexpected combining -ya'], // Mac: 247, ˜, U+02DC
+			['\u00FC\u02DC', 'द्व्य', 'dvya'], // Mac: 247, ˜, U+02DC
+			['\u00FC\u02DCp', 'द्व्या', 'dvyA'], // Mac: 247, ˜, U+02DC
 
 			['A', '!A!', 'incomplete kh (without vertical bar): should mark an error'],
 			['q', '!q!', 'incomplete combining -i (shorter version)'],
@@ -264,12 +282,7 @@
 			['\u00cfp', 'आ', 'aa'],
 
 			['fl"', 'न्न', 'nna'],
-			['\u00cc', 'उ', 'u'],
-			['\u00d4', 'ए', 'e'],
-			['\u00da', 'इ', 'i'],
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
-			['\u00fc\u02dc', 'द्व्य', 'dvya'],
-			['\u00fc\u02dcp', 'द्व्या', 'dvyA'],
 			['\n', '\n', 'newline'],
 		];
 		for (var i=0; i < tests.length; i++) {

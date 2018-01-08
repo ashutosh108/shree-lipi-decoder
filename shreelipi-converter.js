@@ -39,10 +39,13 @@ var C = {
 	A: 'अ',
 	AA: 'आ',
 	I: 'इ',
+	II: 'ई',
 	U: 'उ',
+	UU: 'ऊ',
 	O: 'ओ',
 	AU: 'औ',
 	E: 'ए',
+	AI: 'ऐ',
 	RI: 'ऋ',
 	RRI: 'ॠ',
 	LI: 'ऌ',
@@ -204,6 +207,8 @@ var COMPLETE_CONSONANT = {
 	'\u00C8': C.TTHA + C.VIRAMA + C.YA,   // Mac: 233, È, U+00C8
 	'\u00CD': C.DDA  + C.VIRAMA + C.YA,   // Mac: 234, Í, U+00CD
 	'\u00CE': C.DDHA + C.VIRAMA + C.YA,   // Mac: 235, Î, U+00CE
+	'\u00DB': C.ZA,    // Mac: 243, Û, U+00DB
+	'\u00D9': C.DA   + C.VIRAMA + C.BHA + C.VIRAMA + C.RA,  // Mac: 244, Ù, U+00D9
 };
 
 var COMBINING_SVARA = {
@@ -226,10 +231,11 @@ var COMPLETE_SVARA = {
 	'h': C.RI,
 	'i': C.RRI,
 	'j': C.LI,
-	'\u00cf': C.A,
-	'\u00da': C.I,
-	'\u00cc': C.U,
-	'\u00d4': C.E,
+	'\u00CF': C.A,  // Mac: 236, Ï, U+00CF
+	'\u00CC': C.U,  // Mac: 237, Ì, U+00CC
+	'\u00D3': C.UU, // Mac: 238, Ó, U+00D3
+	'\u00D4': C.E,  // Mac: 239, Ô, U+00D4
+	'\u00DA': C.I,  // Mac: 242, Ú, U+00DA
 };
 
 var DIGITS = {
@@ -369,6 +375,18 @@ return {
 							char = C.AA;
 							consumed += text[i+1];
 							i++;
+						} else if (char === C.E && peek(text, i+1, 'u')) {
+							char = C.AI;
+							consumed += text[i+1];
+							i++;
+						} else if (char === C.I && peek(text, i+1, '{')) {
+							char = C.II;
+							consumed += text[i+1];
+							i++;
+						} else if (char === C.I && peek(text, i+1, '|')) {
+							char = C.II + C.ANUSVARA;
+							consumed += text[i+1];
+							i++;
 						}
 						out += char;
 						state = STATE.COMPLETE_SVARA;
@@ -427,8 +445,22 @@ return {
 							break;
 						}
 						break stringloop
+					case '\u0131': // Mac: 245, ı, U+0131 combining -ra (unclear when it is actually used, but looks OK when inserted before the bar)
+						if (state === STATE.CONSONANT_WITHOUT_BAR) {
+							consumed += text[i];
+							out += C.VIRAMA + C.RA;
+							break;
+						}
+						break stringloop
 					case 'n': // combining -na (used e.g. after pa)
 						if (state === STATE.COMPLETE_SYLLABLE) {
+							consumed += text[i];
+							out += C.VIRAMA + C.NA;
+							break;
+						}
+						break stringloop
+					case '\u02C6': // Mac: 246, ˆ, U+02C6 second combining -na (used before bars?)
+						if (state === STATE.CONSONANT_WITHOUT_BAR) {
 							consumed += text[i];
 							out += C.VIRAMA + C.NA;
 							break;
