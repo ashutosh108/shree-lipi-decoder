@@ -69,95 +69,117 @@ var INCOMPLETE_CONSONANT = {
 	'A': C.KHA,
 	'B': C.GA,
 	'C': C.GHA,
+	'E': C.CA,
 	'H': C.JHA,
 	'I': C.NYA,
-	'\u2044': C.LA,
-	'\\': C.VA,
-	'Y': C.YA,
-	'E': C.CA,
 	'G': C.JA,
 	'N': C.NNA,
-	'T': C.PA,
 	'V': C.BA,
 	'W': C.BHA,
-	'_': C.SA,
-	'b': C.KA + C.VIRAMA + C.SHA,
-	'e': C.TA + C.VIRAMA + C.RA,
-	'f': C.TA + C.VIRAMA + C.TA,
 	'O': C.TA,
-	'R': C.DHA,
-	'X': C.MA,
-	'S': C.NA,
-	'\uFB02': C.NA + C.VIRAMA + C.NA,
-	'\u00c4': C.NYA + C.VIRAMA + C.JA, // Mac: 128, Ä, U+00C4
-	'\u00c5': C.NYA + C.VIRAMA + C.CA, // Mac: 129, Å, U+00C5
-	'\u00c7': C.CA + C.VIRAMA + C.CA, // Mac: 130, Ç, U+00C7
-	'\u00c9': C.JA + C.VIRAMA + C.JA, // Mac: 131, É, U+00C9
 	'P': C.THA,
-	'\u2014': C.TA + C.VIRAMA + C.NA,
+	'R': C.DHA,
+	'S': C.NA,
+	'T': C.PA,
+	'X': C.MA,
+	'Y': C.YA,
+	'\\': C.VA,
 	']': C.ZA,
 	'^': C.SHA,
+	'_': C.SA,
+	'b': C.KA + C.VIRAMA + C.SHA,
 	'c': C.JA + C.VIRAMA + C.NYA,
-	'\u2206': C.ZA + C.VIRAMA + C.CA,
-	'\u00a0': C.PA + C.VIRAMA + C.TA,
+	'e': C.TA + C.VIRAMA + C.RA,
+	'f': C.TA + C.VIRAMA + C.TA,
+	'\u2044': C.LA,
+	'\uFB02': C.NA  + C.VIRAMA + C.NA,
+	'\u00c4': C.NYA + C.VIRAMA + C.JA, // Mac: 128, Ä, U+00C4
+	'\u00c5': C.NYA + C.VIRAMA + C.CA, // Mac: 129, Å, U+00C5
+	'\u00c7': C.CA  + C.VIRAMA + C.CA, // Mac: 130, Ç, U+00C7
+	'\u00c9': C.JA  + C.VIRAMA + C.JA, // Mac: 131, É, U+00C9
+	'\u03C0': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.SHA, // Mac: 185, π, U+03C0
+	'\u0192': C.ZA  + C.VIRAMA + C.VA, // Mac: 196, ƒ, U+0192
+	'\u2248': C.ZA  + C.VIRAMA + C.NA, // Mac: 197, ≈, U+2248
+	'\u2206': C.ZA  + C.VIRAMA + C.CA, // Mac: 198, ∆, U+2206
+	'\u00A0': C.PA  + C.VIRAMA + C.TA, // Mac: 202, NBSP, U+00A0
+	'\u0153': C.HA  + C.VIRAMA + C.MA, // Mac: 207, œ, U+0153
+	'\u2014': C.TA  + C.VIRAMA + C.NA,
 };
 
 var COMPLETE_CONSONANT = {
+	'@': C.KA,
 	'D': C.NGA,
 	'F': C.CHA,
-	'd': C.ZA + C.VIRAMA + C.RA,
-	'@': C.KA,
 	'J': C.TTA,
 	'K': C.TTHA,
 	'L': C.DDA,
 	'M': C.DDHA,
-	'Z': C.RA,
-	'[': C.LA,
-	'a': C.LLA,
-	'`': C.HA,
 	'Q': C.DA,
 	'U': C.PHA,
-	'\u00c1': C.DA + C.VIRAMA + C.RA,
-	'\u201a': C.HA + C._RI,
-	'\u2021': C.RA + C._U,
+	'Z': C.RA,
+	'[': C.LA,
+	'`': C.HA,
+	'a': C.LLA,
+	'd': C.ZA + C.VIRAMA + C.RA,
+	'\u00c1': C.DA   + C.VIRAMA + C.RA,
+	'\u201a': C.HA   + C._RI,
+	'\u2021': C.RA   + C._U,
 	'\u00c8': C.TTHA + C.VIRAMA + C.YA,
-	'\u00d5': C.SHA + C.VIRAMA + C.TTA,
-	'\u0152': C.SHA + C.VIRAMA + C.TTHA,
-	'\u00D1': C.LA + C.VIRAMA + C.LA, // Mac: 132, Ñ, U+00D1
-	'\u00D6': C.HA + C.VIRAMA + C.NA, // Mac: 133, Ö, U+00D6
-	'\u00DC': C.HA + C.VIRAMA + C.NNA, // Mac: 134, Ü, U+00DC
-	'\u00E1': C.HA + C.VIRAMA + C.LA, // Mac: 135, á, U+00E1
-	'\u00e0': C.HA + C.VIRAMA + C.VA, // Mac: 136, à, U+00E0
-	'\u00E2': C.DDA + C.VIRAMA + C.DDHA, // Mac: 137, â, U+00E2
-	'\u00E4': C.NGA + C.VIRAMA + C.KA, // Mac: 138, ä, U+00E4
-	'\u00E3': C.NGA + C.VIRAMA + C.KHA, // Mac: 139, ã, U+00E3
-	'\u00E5': C.NGA + C.VIRAMA + C.GA, // Mac: 140, å, U+00E5
-	'\u00E7': C.NGA + C.VIRAMA + C.GHA, // Mac: 141, ç, U+00E7
-	'\u00E9': C.NGA + C.VIRAMA + C.MA, // Mac: 142, é, U+00E9
-	'\u00E8': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.SHA, // Mac: 143, è, U+00E8
-	'\u00EA': C.CHA + C.VIRAMA + C.VA, // Mac: 144, ê, U+00EA
-	'\u00F2': C.KA + C.VIRAMA + C.TA, // Mac: 152, ò, U+00F2
-	'\u00F4': C.TTA + C.VIRAMA + C.TTA, // Mac: 153, ô, U+00F4
+	'\u00D1': C.LA   + C.VIRAMA + C.LA,   // Mac: 132, Ñ, U+00D1
+	'\u00D6': C.HA   + C.VIRAMA + C.NA,   // Mac: 133, Ö, U+00D6
+	'\u00DC': C.HA   + C.VIRAMA + C.NNA,  // Mac: 134, Ü, U+00DC
+	'\u00E1': C.HA   + C.VIRAMA + C.LA,   // Mac: 135, á, U+00E1
+	'\u00e0': C.HA   + C.VIRAMA + C.VA,   // Mac: 136, à, U+00E0
+	'\u00E2': C.DDA  + C.VIRAMA + C.DDHA, // Mac: 137, â, U+00E2
+	'\u00E4': C.NGA  + C.VIRAMA + C.KA,   // Mac: 138, ä, U+00E4
+	'\u00E3': C.NGA  + C.VIRAMA + C.KHA,  // Mac: 139, ã, U+00E3
+	'\u00E5': C.NGA  + C.VIRAMA + C.GA,   // Mac: 140, å, U+00E5
+	'\u00E7': C.NGA  + C.VIRAMA + C.GHA,  // Mac: 141, ç, U+00E7
+	'\u00E9': C.NGA  + C.VIRAMA + C.MA,   // Mac: 142, é, U+00E9
+	'\u00E8': C.NGA  + C.VIRAMA + C.KA  + C.VIRAMA + C.SHA, // Mac: 143, è, U+00E8
+	'\u00EA': C.CHA  + C.VIRAMA + C.VA,   // Mac: 144, ê, U+00EA
+	'\u00F2': C.KA   + C.VIRAMA + C.TA,   // Mac: 152, ò, U+00F2
+	'\u00F4': C.TTA  + C.VIRAMA + C.TTA,  // Mac: 153, ô, U+00F4
 	'\u00F6': C.TTHA + C.VIRAMA + C.TTHA, // Mac: 154, ö, U+00F6
-	'\u00F5': C.DDA + C.VIRAMA + C.DDA, // Mac: 155, õ, U+00F5
+	'\u00F5': C.DDA  + C.VIRAMA + C.DDA,  // Mac: 155, õ, U+00F5
 	'\u00FA': C.DDHA + C.VIRAMA + C.DDHA, // Mac: 156, ú, U+00FA
-	'\u00F9': C.DA + C.VIRAMA + C.YA, // Mac: 157, ù, U+00F9
-	'\u00FB': C.DA + C.VIRAMA + C.GA, // Mac: 158, û, U+00FB
-	'\u00FC': C.DA + C.VIRAMA + C.VA, // Mac: 159, ü, U+00FC
-	'\u00AE': C.DA + C.VIRAMA + C.BA, // Mac: 168, ®, U+u00AE
-	'\u00A9': C.DA + C.VIRAMA + C.DA, // Mac: 169, ©, U+00A9
-	'\u2122': C.DA + C._RI, // Mac: 170, ™, U+2122
-	'\u00B4': C.DA + C.VIRAMA + C.DHA, // Mac: 171, ´, U+00B4
-	'\u00A8': C.DA + C.VIRAMA + C.BHA, // Mac: 172, ¨, U+00A8
-	'\u2260': C.DA + C.VIRAMA + C.MA, // Mac: 173, ≠, U+2260
-	'\u00C6': C.SA + C.VIRAMA + C.TA + C.VIRAMA + C.RA, // Mac: 174, Æ, U+00C6
-	'\u00d8': C.DA + C.VIRAMA + C.GHA, // Mac: 175, Ø, U+00D8
-	'\u221E': C.DA + C.VIRAMA + C.BA + C.VIRAMA + C.RA, // Mac: 176, ∞, U+221E
-	'\u00B1': C.KA + C.VIRAMA + C.LA, // Mac: 177, ±, U+00B1
-	'\u2264': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.RA, // Mac: 178, ≤, U+2264
-	'\u2265': C.NGA + C.VIRAMA + C.GA + C.VIRAMA + C.RA, // Mac: 179, ≥, U+2265
-	'\u00A5': C.NGA + C.VIRAMA + C.GHA + C.VIRAMA + C.RA, // Mac: 180, ¥, U+00A5
-	'\u00B5': C.NGA + C.VIRAMA + C.KA + C.VIRAMA + C.TA, // Mac: 181, µ, U+00B5
+	'\u00F9': C.DA   + C.VIRAMA + C.YA,   // Mac: 157, ù, U+00F9
+	'\u00FB': C.DA   + C.VIRAMA + C.GA,   // Mac: 158, û, U+00FB
+	'\u00FC': C.DA   + C.VIRAMA + C.VA,   // Mac: 159, ü, U+00FC
+	'\u00AE': C.DA   + C.VIRAMA + C.BA,   // Mac: 168, ®, U+u00AE
+	'\u00A9': C.DA   + C.VIRAMA + C.DA,   // Mac: 169, ©, U+00A9
+	'\u2122': C.DA   + C._RI, // Mac: 170, ™, U+2122
+	'\u00B4': C.DA   + C.VIRAMA + C.DHA,  // Mac: 171, ´, U+00B4
+	'\u00A8': C.DA   + C.VIRAMA + C.BHA,  // Mac: 172, ¨, U+00A8
+	'\u2260': C.DA   + C.VIRAMA + C.MA,   // Mac: 173, ≠, U+2260
+	'\u00C6': C.SA   + C.VIRAMA + C.TA  + C.VIRAMA + C.RA,  // Mac: 174, Æ, U+00C6
+	'\u00d8': C.DA   + C.VIRAMA + C.GHA,  // Mac: 175, Ø, U+00D8
+	'\u221E': C.DA   + C.VIRAMA + C.BA  + C.VIRAMA + C.RA,  // Mac: 176, ∞, U+221E
+	'\u00B1': C.KA   + C.VIRAMA + C.LA,   // Mac: 177, ±, U+00B1
+	'\u2264': C.NGA  + C.VIRAMA + C.KA  + C.VIRAMA + C.RA,  // Mac: 178, ≤, U+2264
+	'\u2265': C.NGA  + C.VIRAMA + C.GA  + C.VIRAMA + C.RA,  // Mac: 179, ≥, U+2265
+	'\u00A5': C.NGA  + C.VIRAMA + C.GHA + C.VIRAMA + C.RA,  // Mac: 180, ¥, U+00A5
+	'\u00B5': C.NGA  + C.VIRAMA + C.KA  + C.VIRAMA + C.TA,  // Mac: 181, µ, U+00B5
+	'\u2202': C.DA   + C.VIRAMA + C.GA  + C.VIRAMA + C.RA,  // Mac: 182, ∂, U+2202
+	'\u2211': C.DA   + C.VIRAMA + C.GHA + C.VIRAMA + C.RA,  // Mac: 183, ∑, U+2211
+	'\u220F': C.NGA  + C.VIRAMA + C.KHA + C.VIRAMA + C.RA,  // Mac: 184, ∏, U+220F
+	'\u222B': C.NGA  + C.VIRAMA + C.KA  + C.VIRAMA + C.SHA + C.VIRAMA + C.VA, // Mac: 186, ∫, U+222B
+	'\u00AA': C.DA   + C.VIRAMA + C.RA  + C.VIRAMA + C.YA,  // Mac: 187, ª, U+00AA
+	'\u00BA': C.DA   + C.VIRAMA + C.VA  + C.VIRAMA + C.YA,  // Mac: 188, º, U+00BA
+	'\u03A9': C.HA   + C.VIRAMA + C.LLA,  // Mac: 189, Ω, U+03A9
+	'\u00E6': C.SA   + C.VIRAMA + C.RA,   // Mac: 190, æ, U+00E6
+	'\u00F8': C.DA   + C.VIRAMA + C.DA  + C.VIRAMA + C.VA,  // Mac: 191, ø, U+00F8
+	'\u00BF': C.DA   + C.VIRAMA + C.DA  + C.VIRAMA + C.RA,  // Mac: 192, ¿, U+00BF
+	'\u00A1': C.DA   + C.VIRAMA + C.DA  + C.VIRAMA + C.DHA, // Mac: 193, ¡, U+00A1
+	'\u00AC': C.DA   + C.VIRAMA + C.BHA + C.VIRAMA + C.YA,  // Mac: 194, ¬, U+00AC
+	'\u221A': C.SA   + C.VIRAMA + C.NA,   // Mac: 195, √, U+221A
+	'\u00AB': C.ZA   + C.VIRAMA + C.LA,   // Mac: 199, «, U+00AB
+	'\u00BB': C.KA   + C.VIRAMA + C.KA,   // Mac: 200, », U+00BB
+	'\u2026': C.KA   + C.VIRAMA + C.VA,   // Mac: 201, …, U+2026
+	'\u00C0': C.TTA  + C.VIRAMA + C.TTHA, // Mac: 203, À, U+00C0
+	'\u00C3': C.TTA  + C.VIRAMA + C.VA,   // Mac: 204, Ã, U+00C3
+	'\u00d5': C.SHA  + C.VIRAMA + C.TTA,  // Mac: 205, Õ, U+00D5
+	'\u0152': C.SHA  + C.VIRAMA + C.TTHA, // Mac: 206, Œ, U+0152
 };
 
 var COMBINING_SVARA = {
