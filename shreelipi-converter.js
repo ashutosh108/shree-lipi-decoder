@@ -40,6 +40,8 @@ var C = {
 	AA: 'आ',
 	I: 'इ',
 	U: 'उ',
+	O: 'ओ',
+	AU: 'औ',
 	E: 'ए',
 	RI: 'ऋ',
 	RRI: 'ॠ',
@@ -135,8 +137,6 @@ var COMPLETE_CONSONANT = {
 	'`': C.HA,
 	'a': C.LLA,
 	'd': C.ZA + C.VIRAMA + C.RA,
-	'\u00c1': C.DA   + C.VIRAMA + C.RA,
-	'\u00c8': C.TTHA + C.VIRAMA + C.YA,
 	'\u00D1': C.LA   + C.VIRAMA + C.LA,   // Mac: 132, Ñ, U+00D1
 	'\u00D6': C.HA   + C.VIRAMA + C.NA,   // Mac: 133, Ö, U+00D6
 	'\u00DC': C.HA   + C.VIRAMA + C.NNA,  // Mac: 134, Ü, U+00DC
@@ -197,6 +197,13 @@ var COMPLETE_CONSONANT = {
 	'\u201A': C.HA   + C._RI, // Mac: 226, ‚, U+201A
 	'\u201E': C.HA   + C.VIRAMA + C.RA,   // Mac: 227, „, U+201E
 	'\u2030': C.PA   + C.VIRAMA + C.LA,   // Mac: 228, ‰, U+2030
+	'\u00C2': C.HA   + C.VIRAMA + C.YA,   // Mac: 229, Â, U+00C2
+	'\u00CA': C.DA   + C.VIRAMA + C.NA,   // Mac: 230, Ê, U+00CA
+	'\u00C1': C.DA   + C.VIRAMA + C.RA,   // Mac: 231, Á, U+00C1
+	'\u00CB': C.TTA  + C.VIRAMA + C.YA,   // Mac: 232, Ë, U+00CB
+	'\u00C8': C.TTHA + C.VIRAMA + C.YA,   // Mac: 233, È, U+00C8
+	'\u00CD': C.DDA  + C.VIRAMA + C.YA,   // Mac: 234, Í, U+00CD
+	'\u00CE': C.DDHA + C.VIRAMA + C.YA,   // Mac: 235, Î, U+00CE
 };
 
 var COMBINING_SVARA = {
@@ -350,7 +357,15 @@ return {
 					if (state === STATE.INIT) {
 						var char = COMPLETE_SVARA[text[i]];
 						consumed += text[i];
-						if (char === C.A && peek(text, i+1, 'p')) {
+						if (char === C.A && peek(text, i+1, 'pu')) {
+							char = C.O;
+							consumed += text.substring(i+1, i+3);
+							i+=2;
+						} else if (char === C.A && peek(text, i+1, 'pv')) {
+							char = C.AU;
+							consumed += text.substring(i+1, i+3);
+							i+=2;
+						} else if (char === C.A && peek(text, i+1, 'p')) {
 							char = C.AA;
 							consumed += text[i+1];
 							i++;

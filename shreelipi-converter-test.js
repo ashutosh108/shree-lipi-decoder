@@ -230,6 +230,17 @@
 			['\u201A', 'हृ', 'hR'], // Mac: 226, ‚, U+201A
 			['\u201E', 'ह्र', 'hra'], // Mac: 227, „, U+201E
 			['\u2030', 'प्ल', 'pla'], // Mac: 228, ‰, U+2030
+			['\u00C2', 'ह्य', 'hya'], // Mac: 229, Â, U+00C2
+			['\u00CA', 'द्न', 'dna'], // Mac: 230, Ê, U+00CA
+			['\u00C1', 'द्र', 'dra'], // Mac: 231, Á, U+00C1
+			['\u00CB', 'ट्य', 'Tya'], // Mac: 232, Ë, U+00CB
+			['\u00C8', 'ठ्य', 'THya'], // Mac: 233, È, U+00C8
+			['\u00CD', 'ड्य', 'Dya'], // Mac: 234, Í, U+00CD
+			['\u00CE', 'ढ्य', 'DHya'], // Mac: 235, Î, U+00CE
+			['\u00CF', 'अ', 'a'], // Mac: 236, Ï, U+00CF
+			['\u00CFp', 'आ', 'aa'], // Mac: 236, Ï, U+00CF
+			['\u00CFpu', 'ओ', 'o'], // Mac: 236, Ï, U+00CF
+			['\u00CFpv', 'औ', 'au'], // Mac: 236, Ï, U+00CF
 
 			['A', '!A!', 'incomplete kh (without vertical bar): should mark an error'],
 			['q', '!q!', 'incomplete combining -i (shorter version)'],
@@ -251,12 +262,11 @@
 			// Array('<e"', 'त्रि')
 			['\u00cf', 'अ', 'a'],
 			['\u00cfp', 'आ', 'aa'],
-			['\u00c1', 'द्र', 'dra'],
+
 			['fl"', 'न्न', 'nna'],
 			['\u00cc', 'उ', 'u'],
 			['\u00d4', 'ए', 'e'],
 			['\u00da', 'इ', 'i'],
-			['\u00c8', 'ठ्य', 'THya'],
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
 			['\u00fc\u02dc', 'द्व्य', 'dvya'],
 			['\u00fc\u02dcp', 'द्व्या', 'dvyA'],
