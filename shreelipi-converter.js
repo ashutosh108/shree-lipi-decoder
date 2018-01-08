@@ -503,7 +503,7 @@ return {
 	'elementToUnicode': function (element) {
 		function needsRecoding(element) {
 			var class_list = element.parentElement.classList;
-			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's22', 's23'];
+			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's22', 's23', 's25', 's26'];
 			for (i=0; i<roman_classes.length; i++) {
 				if (class_list.contains(roman_classes[i]))
 					return false;
