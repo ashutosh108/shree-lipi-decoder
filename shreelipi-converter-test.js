@@ -219,6 +219,11 @@
 			['\u25CA"', 'क', 'k+a'], // Mac: 215, ◊, U+25CA
 			['\u00FF"', 'छ', 'ch+a'], // Mac: 216, ÿ, U+00FF
 
+			['A', '!A!', 'incomplete kh (without vertical bar): should mark an error'],
+			['q', '!q!', 'incomplete combining -i (shorter version)'],
+			['<', '!<!', 'incomplete combining -i (longer version)'],
+			['\u00ec', '!\u00EC!', 'incomplete comining -i (even longer version, used in sti)'],
+
 			['_O"s', 'स्तु'],
 			['Y"ss', 'यु!s!', 'Second combining vowel is invalid'],
 			['X"##', 'मः!#!'],

@@ -448,10 +448,14 @@ return {
 						break stringloop;
 				}
 			}
-			// string finished and we never got a chance to append svara "i": mark an error
-			if (got_tail_i) {
-				out += '!' + tail_i_char + '!';
+
+			// Mark an error if:
+			// 1) string finished and we never got a chance to append svara "i"
+			// 2) the consonant was never finished with vertical bar
+			if (got_tail_i || state === STATE.CONSONANT_WITHOUT_BAR) {
+				consumed = ''; out = '';
 			}
+
 			return {'consumed': consumed, 'out': out};
 		}
 
