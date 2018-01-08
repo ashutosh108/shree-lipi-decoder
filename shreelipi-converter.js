@@ -527,6 +527,7 @@ return {
 		// fix double '-a'-s
 		text = text.replace(/pp/g, 'p');
 
+		// allow 'ga' with p instead of " to complete the consonant
 		text = text.replace(/Bp/g, 'B"');
 
 		newText = '';
