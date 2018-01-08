@@ -289,6 +289,7 @@
 			['<  "', 'प्ति', 'pti: make sure we accept double spaces before the \'"\' as well'],
 			['<   "', 'प्ति', 'pti: make sure we accept tripls spaces before the \'"\' as well'],
 			['Y"{h°', 'र्यऋ', 'ryaR'],
+			['TY"pp', 'प्या', 'pya with extra -a at the end'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);

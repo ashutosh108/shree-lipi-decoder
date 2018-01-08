@@ -524,6 +524,9 @@ return {
 		// fix some of the lost 0xCA/NBSP chars which was errorneously replaced by space
 		text = text.replace(/ {1,3}"/g, '\u00a0"');
 
+		// fix double '-a'-s
+		text = text.replace(/pp/g, 'p');
+
 		newText = '';
 		while (text !== '') {
 			res = convertSyllable(text);
@@ -574,7 +577,7 @@ return {
 		if (element.nodeType === 1 && element.classList.contains('slc-float')) { return; }
 
 		if (element.nodeType == 3 && needsRecoding(element)) {
-			element.textContent = $slc.stringToUnicode2(element.textContent);
+			element.textContent += $slc.stringToUnicode2(element.textContent);
 		}
 		for (var i=0; i<element.childNodes.length; i++) {
 			$slc.elementToUnicode(element.childNodes[i]);
