@@ -282,6 +282,8 @@
 			['\u00cfp', 'आ', 'aa'],
 
 			['fl"', 'न्न', 'nna'],
+			['fl"fl"', 'न्नन्न', 'nnanna (make sure that all "fl" occurences are replaced)'],
+			[' " "', 'प्तप्त', 'ptapta (recovered, make sure that all \' "\' occurences are replaced)'],
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
 			['\n', '\n', 'newline'],
 		];

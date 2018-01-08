@@ -516,10 +516,10 @@ return {
 		}
 
 		// fix wrongly disassembled ligature
-		text = text.replace('fl', '\uFB02');
+		text = text.replace(/fl/g, '\uFB02');
 
 		// fix some of the lost 0xCA/NBSP chars which was errorneously replaced by space
-		text = text.replace(' "', '\u00a0"');
+		text = text.replace(/ "/g, '\u00a0"');
 
 		newText = '';
 		while (text !== '') {
@@ -551,8 +551,13 @@ return {
 		function needsRecoding(element) {
 			var class_list = element.parentElement.classList;
 			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's22', 's23', 's25', 's26'];
-			for (i=0; i<roman_classes.length; i++) {
+			var malayam_classes = ['s28'];
+			for (var i=0; i<roman_classes.length; i++) {
 				if (class_list.contains(roman_classes[i]))
+					return false;
+			}
+			for (var i=0; i<malayam_classes.length; i++) {
+				if (class_list.contains(malayam_classes[i]))
 					return false;
 			}
 			// '[' and ']' chars in title are not in SHREExxx font
