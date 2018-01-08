@@ -527,6 +527,8 @@ return {
 		// fix double '-a'-s
 		text = text.replace(/pp/g, 'p');
 
+		text = text.replace(/Bp/g, 'B"');
+
 		newText = '';
 		while (text !== '') {
 			res = convertSyllable(text);
@@ -577,7 +579,7 @@ return {
 		if (element.nodeType === 1 && element.classList.contains('slc-float')) { return; }
 
 		if (element.nodeType == 3 && needsRecoding(element)) {
-			element.textContent += $slc.stringToUnicode2(element.textContent);
+			element.textContent = $slc.stringToUnicode2(element.textContent);
 		}
 		for (var i=0; i<element.childNodes.length; i++) {
 			$slc.elementToUnicode(element.childNodes[i]);
