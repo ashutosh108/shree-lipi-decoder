@@ -166,7 +166,6 @@ var COMBINING_SVARA = {
 };
 
 var COMPLETE_SVARA = {
-	'g': C.OM,
 	'h': C.RI,
 	'i': C.RRI,
 	'j': C.LI,
@@ -187,7 +186,32 @@ var DIGITS = {
 	'7': '७',
 	'8': '८',
 	'9': '९',
-}
+};
+
+var COMPLETE_CHARS = {
+	',': ',', // comma
+	'(': '(',
+	')': ')',
+	'-': '-', // hyphen
+	'?': '?', // question mark
+	'!': '!', // exclamation
+	'*': '*', // asterisk
+	'+': '+', // plus
+	'.': '.', // dot (full stop)
+	'/': '/', // forward slash
+	':': ':', // colon
+	';': ';', // semicolon
+	'=': '=', // equal
+	'$': '।', // separator: single vertical bar
+	'&': C.AVAGRAHA, // avagraha
+	'g': C.OM,
+	'k': C.CANDRABINDU_VIRAMA, // CANDRABINDU VIRAMA
+	'\u00eb': '\u2018', // Mac: 145, ë, U+00EB, LEFT SINGLE QUOTATION MARK
+	'\u00ed': '\u2019', // Mac: 146, í, U+00ED, RIGHT SINGLE QUOTATION MARK
+	'\u2020': '\u00A0', // Mac: 160, †, U+2020 NBSP
+	'\u00F1': '–', // Mac: 150, ñ, U+00F1 en-dash
+	'\u00F3': '—', // Mac: 151, ó, U+00F3 em-dash
+};
 
 return {
 	'stringToUnicode2': function (text) {
@@ -284,6 +308,12 @@ return {
 						out += char;
 						state = STATE.COMPLETE_SVARA;
 					}
+				} else if (COMPLETE_CHARS.hasOwnProperty(text[i])) {
+					if (state === STATE.INIT) {
+						consumed += text[i];
+						out += COMPLETE_CHARS[text[i]];
+					}
+					break stringloop;
 				} else switch (text[i]) {
 					case '"': // bar
 						if (state === STATE.INIT) {
@@ -321,8 +351,6 @@ return {
 						}
 						break stringloop;
 					case '\u00b0': // small space (used after ka)
-						consumed += text[i];
-						break;
 					case '>': // small space (used after dda)
 						consumed += text[i];
 						break;
@@ -361,52 +389,10 @@ return {
 							out = C.RA + C.VIRAMA + out + C.ANUSVARA;
 						}
 						break; stringloop;
-					case ',': // comma
-					case '(':
-					case ')':
-					case '-': // hyphen
-					case '?': // question mark
-					case '!': // exclamation
-					case '*': // asterisk
-					case '+': // plus
-					case '.': // dot (full stop)
-					case '/': // forward slash
-					case ':': // colon
-					case ';': // semicolon
-					case '=': // equal
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += text[i];
-						}
-						break stringloop;
-					case '$': // separator: single vertical bar
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += '।';
-						}
-						break stringloop;
-					case '&': // avagraha
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += C.AVAGRAHA;
-						}
-						break stringloop;
 					case 'o': // virama
 						if (state === STATE.COMPLETE_SYLLABLE) {
 							consumed += text[i];
 							out += C.VIRAMA;
-						}
-						break stringloop;
-					case '\u00eb': // Mac: 145, ë, U+00EB, LEFT SINGLE QUOTATION MARK
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += '\u2018';
-						}
-						break stringloop;
-					case '\u00ed': // Mac: 146, í, U+00ED, RIGHT SINGLE QUOTATION MARK
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += '\u2019';
 						}
 						break stringloop;
 					case '\u02dc': // combining '-ya', can go after either incomplete or complete consonant
@@ -415,25 +401,6 @@ return {
 							out += C.VIRAMA + C.YA;
 							state = STATE.COMPLETE_SYLLABLE;
 							break;
-						} else {
-							break stringloop;
-						}
-					case '\u00F1': // Mac: 150, ñ, U+00F1 en-dash
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += '–';
-						}
-						break stringloop;
-					case '\u00F3': // Mac: 151, ó, U+00F3 em-dash
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += '—';
-						}
-						break stringloop;
-					case 'k': // CANDRABINDU VIRAMA
-						if (state === STATE.INIT) {
-							consumed += text[i];
-							out += C.CANDRABINDU_VIRAMA;
 						}
 						break stringloop;
 					default:

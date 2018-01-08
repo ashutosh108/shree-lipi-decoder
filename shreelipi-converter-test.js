@@ -123,7 +123,7 @@
 			['<@}', 'क्रि', 'kri'], // Mac: 125, }
 			['~', '!~!', 'unexpected combining rakara'], // Mac: 126, ~
 			['EF~>', 'च्छ्र', 'cchra'], // Mac: 126, ~
-
+			// Mac: 127, DEL is not implemented in SHREE960
 			['\u00c4"', 'ञ्ज', 'Nja'], // Mac: 128, Ä, U+00C4
 			['\u00c5"', 'ञ्च', 'Nca'], // Mac: 129, Å, U+00C5‚
 			['\u00c7"', 'च्च', 'cca'], // Mac: 130, Ç, U+00C7
@@ -159,6 +159,7 @@
 			['\u00FB', 'द्ग', 'dga'], // Mac: 158, û, U+00FB
 			['\u00FBl', 'द्गु', 'dgu'], // Mac: 158, û, U+00FB
 			['\u00FC', 'द्व', 'dva'], // Mac: 159, ü, U+00FC
+			['\u2020', '\u00A0', 'nbsp'], // Mac: 160, †, U+2020
 
 			['_O"s', 'स्तु'],
 			['Y"ss', 'यु!s!', 'Second combining vowel is invalid'],
