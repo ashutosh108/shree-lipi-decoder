@@ -287,6 +287,7 @@
 			['E"O"sQ{', 'चतुर्द', 'caturda'],
 			['\n', '\n', 'newline'],
 			['<  "', 'प्ति', 'pti: make sure we accept double spaces before the \'"\' as well'],
+			['<   "', 'प्ति', 'pti: make sure we accept tripls spaces before the \'"\' as well'],
 			['Y"{h°', 'र्यऋ', 'ryaR'],
 		];
 		for (var i=0; i < tests.length; i++) {
