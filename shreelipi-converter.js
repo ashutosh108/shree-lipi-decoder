@@ -562,7 +562,7 @@ return {
 		return newText;
 	},
 
-	'elementToUnicode': function (element) {
+	'elementToUnicode': function (element, duplicate=false) {
 		function needsRecoding(element) {
 			var class_list = element.parentElement.classList;
 			var roman_classes = ['s9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's22', 's23', 's25', 's26', 's32'];
@@ -586,10 +586,15 @@ return {
 		if (element.nodeType === 1 && element.classList.contains('slc-float')) { return; }
 
 		if (element.nodeType == 3 && needsRecoding(element)) {
-			element.textContent = $slc.stringToUnicode2(element.textContent);
+			var newContent = $slc.stringToUnicode2(element.textContent);
+			if (duplicate) {
+				element.textContent += newContent;
+			} else {
+				element.textContent = newContent;
+			}
 		}
 		for (var i=0; i<element.childNodes.length; i++) {
-			$slc.elementToUnicode(element.childNodes[i]);
+			$slc.elementToUnicode(element.childNodes[i], duplicate);
 		}
 	},
 };
