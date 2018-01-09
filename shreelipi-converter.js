@@ -274,6 +274,11 @@ var COMPLETE_CHARS = {
 	'\u2020': '\u00A0', // Mac: 160, †, U+2020 NBSP
 	'\u00F1': '–', // Mac: 150, ñ, U+00F1 en-dash
 	'\u00F3': '—', // Mac: 151, ó, U+00F3 em-dash
+	'#': C.VISARGA,
+	' ': ' ',
+	'\t': '\t',
+	'\n': '\n',
+	'z': C.ANUSVARA,
 };
 
 return {
@@ -298,11 +303,7 @@ return {
 			var out = '';
 			stringloop:
 			for (var i = 0; i<text.length; i++) {
-				if (/[ \t\n]/.test(text[i])) {
-					consumed += text[i];
-					out += text[i];
-					break stringloop;
-				} else if (INCOMPLETE_CONSONANT.hasOwnProperty(text[i])) {
+				if (INCOMPLETE_CONSONANT.hasOwnProperty(text[i])) {
 					var char = INCOMPLETE_CONSONANT[text[i]];
 					if (state === STATE.INIT) {
 						out += char;
@@ -351,11 +352,6 @@ return {
 						}
 						out += char;
 						state = STATE.COMPLETE_SYLLABLE;
-						if (got_tail_i) {
-							out += C._I;
-							got_tail_i = false;
-							state = STATE.COMPLETE_SYLLABLE_WITH_SVARA;
-						}
 					} else {
 						break stringloop;
 					}
@@ -405,10 +401,6 @@ return {
 							break stringloop;
 						} else if (state === STATE.CONSONANT_WITHOUT_BAR) {
 							consumed += text[i];
-							if (got_tail_i) {
-								out += C._I;
-								got_tail_i = false;
-							}
 							state = STATE.COMPLETE_SYLLABLE;
 						}
 						break;
@@ -423,18 +415,6 @@ return {
 							break stringloop;
 						}
 						break;
-					case 'z': // anusvara
-						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.COMPLETE_SYLLABLE_WITH_SVARA) {
-							consumed += text[i];
-							out += C.ANUSVARA;
-						}
-						break stringloop;
-					case '#': // visarga
-						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.COMPLETE_SYLLABLE_WITH_SVARA) {
-							consumed += text[i];
-							out += C.VISARGA;
-						}
-						break stringloop;
 					case '\u00b0': // Mac: 161, °, U+00B0 small space (used after ka)
 					case '>': // small space (used after dda)
 						consumed += text[i];
@@ -442,7 +422,8 @@ return {
 					case '}': // combining ra (used after ka)
 						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.CONSONANT_WITHOUT_BAR) {
 							consumed += text[i];
-							out = out.substring(0, out.length-1) + C.RA + C.VIRAMA + out.substring(out.length-1);
+							// out = out.substring(0, out.length-1) + C.RA + C.VIRAMA + out.substring(out.length-1);
+							out += C.VIRAMA + C.RA;
 							break;
 						}
 						break stringloop
@@ -491,7 +472,12 @@ return {
 					case '|': // combining start ra + anusvara
 						if (state === STATE.COMPLETE_SYLLABLE || state === STATE.COMPLETE_SYLLABLE_WITH_SVARA) {
 							consumed += text[i];
-							out = C.RA + C.VIRAMA + out + C.ANUSVARA;
+							out = C.RA + C.VIRAMA + out;
+							if (got_tail_i) {
+								out += C._I;
+								got_tail_i = false;
+							}
+							out += C.ANUSVARA;
 						}
 						break; stringloop;
 					case 'o': // virama
@@ -513,11 +499,13 @@ return {
 				}
 			}
 
+			if (got_tail_i) {
+				out += C._I;
+			}
 			// Mark an error if:
-			// 1) string finished and we never got a chance to append svara "i"
-			// 2) the consonant was never finished with vertical bar
-			if (got_tail_i || state === STATE.CONSONANT_WITHOUT_BAR) {
-				consumed = ''; out = '';
+			// 1) the consonant was never finished with vertical bar
+			if (state === STATE.CONSONANT_WITHOUT_BAR) {
+				out += C.VIRAMA;
 			}
 
 

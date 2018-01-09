@@ -14,7 +14,7 @@
 			[' ', ' ', 'space'], // Mac: 32, ' '
 			['!', '!', 'exclamation'], // Mac: 33, !
 			['"', '!"!'], // Mac: 34, "
-			['#', '!#!', 'visarga is valid only after syllables'], // Mac: 35, #
+			['#', 'ः', 'unexpected visarga'], // Mac: 35, #
 			['X"#', 'मः'], // Mac: 35, #
 			['$', '।', 'separator: single vertical bar'], // Mac: 36, $
 			['O"%', 'तॄ', 'RR: tRR'], // Mac: 37, %
@@ -30,7 +30,7 @@
 			['0123456789', '०१२३४५६७८९', 'all digits'], // Mac: 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 0123456789
 			[':', ':', 'colon'], // Mac: 58, :
 			[';', ';', 'semicolon'], // Mac: 59, ;
-			['<', '!<!', 'combining i at the start'], // Mac: 60, <
+			['<', 'ि', 'combining i at the start'], // Mac: 60, <
 			['<O"', 'ति', '-i: ti'], // Mac: 60, <
 			['=', '=', 'equal'], // Mac: 61, =
 			['>', '', 'small space (used after dda)'], // Mac: 62, >
@@ -91,7 +91,7 @@
 			['O"o', 'त्', 't+virama'], // Mac: 111, o
 			['p', '!p!', 'unexpected vertical bar'], // Mac: 112, p
 			['\\"p', 'वा', 'vaa'], // Mac: 112, p
-			['q', '!q!', 'unexpected combining i'], // Mac: 113, q
+			['q', 'ि', 'unexpected combining i'], // Mac: 113, q
 			['qZ', 'रि', 'ri'], // Mac: 113, q
 			['r', '!r!', 'unexpected combining ii'], // Mac: 114, r
 			['dr', 'श्री', 'zrI'], // Mac: 114, r
@@ -111,7 +111,7 @@
 			['X"x', 'मॅ', 'm+candra e'], // Mac: 120, x
 			['y', '!y!', 'unexpected combining candrabindu'], // Mac: 121, y
 			['X"y', 'मँ', 'm+candrabindu'], // Mac: 121, y
-			['z', '!z!', 'unexpected combining anusvara'], // Mac: 122, z
+			['z', 'ं', 'unexpected combining anusvara'], // Mac: 122, z
 			['X"z', 'मं', 'maM'], // Mac: 122, z
 			['V"wz', 'बृं', 'bRM'], // Mac: 122, z
 			['{', '!{!', 'unexpected combining r-'], // Mac: 123, {
@@ -143,7 +143,7 @@
 			['\u00EA', 'छ्व', 'chva'], // Mac: 144, ê, U+00EA
 			['\u00eb', '\u2018', 'LEFT SINGLE QUOTATION MARK'], // Mac: 145, ë, U+00EB
 			['\u00ed', '\u2019', 'RIGHT SINGLE QUOTATION MARK'], // Mac: 146, í, U+00ED
-			['\u00EC', '!\u00EC!', 'unexpected combining -i'], // Mac: 147, ì, U+00EC
+			['\u00EC', 'ि', 'unexpected combining -i'], // Mac: 147, ì, U+00EC
 			['\u00EC_O"', 'स्ति', 'sti'], // Mac: 147, ì, U+00EC
 			['\u00EE', '!\u00EE!', 'unexpected combining -ii'], // Mac: 148, î, U+00EE
 			['@}\u00b0\u00EE', 'क्री', 'krI'], // Mac: 148, î, U+00EE
@@ -260,14 +260,14 @@
 			['\u00FC\u02DC', 'द्व्य', 'dvya'], // Mac: 247, ˜, U+02DC
 			['\u00FC\u02DCp', 'द्व्या', 'dvyA'], // Mac: 247, ˜, U+02DC
 
-			['A', '!A!', 'incomplete kh (without vertical bar): should mark an error'],
-			['q', '!q!', 'incomplete combining -i (shorter version)'],
-			['<', '!<!', 'incomplete combining -i (longer version)'],
-			['\u00ec', '!\u00EC!', 'incomplete comining -i (even longer version, used in sti)'],
+			['A', 'ख्', 'incomplete kh (without vertical bar)'],
+			['q', 'ि', 'incomplete combining -i (shorter version)'],
+			['<', 'ि', 'incomplete combining -i (longer version)'],
+			['\u00ec', 'ि', 'incomplete combining -i (even longer version, used in sti)'],
 
 			['_O"s', 'स्तु'],
 			['Y"ss', 'यु!s!', 'Second combining vowel is invalid'],
-			['X"##', 'मः!#!'],
+			['X"##', 'मःः'],
 			// ['\u00ad', '\u00ad', 'Soft hyphen'],
 			['\u0009', '\u0009', 'tab'],
 			[' \u0009', ' \u0009', 'space+tab'],
@@ -293,6 +293,12 @@
 			['Bp', 'ग', 'ga (with p instead of " to complete the consonant)'],
 			['BY}"', 'ग्र्य', 'grya'],
 			['XT"}', 'म्प्र', 'mpra'],
+			['<R"n{', 'र्ध्नि', 'rdhni'],
+			['<T"}NJo_"o', 'प्रिण्ट्स्', 'prints'],
+			['<T"}', 'प्रि', 'pri'],
+			['<O"#', 'तिः'],
+			['X"t<R"n{ <T"NL>pv', 'मूर्ध्नि पिण्डौ'],
+			['<O"|', 'र्तिं', ''],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);
