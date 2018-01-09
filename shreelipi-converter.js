@@ -524,6 +524,18 @@ return {
 		// allow 'ga' with p instead of " to complete the consonant
 		text = text.replace(/Bp/g, 'B"');
 
+		// allow duplicated '-u'
+		text = text.replace(/[sl]{2,}/g, 's');
+
+		// allow duplicated 'e' (dash above the line)
+		text = text.replace(/u{2,}/g, 'u');
+
+		// allow duplicated '-o' before '-au' (dash above the line before two dashes)
+		text = text.replace(/u+v/g, 'v');
+
+		// move anusvara after combining svaras
+		text = text.replace(/z([stlmr])/g, '$1z');
+
 		newText = '';
 		while (text !== '') {
 			res = convertSyllable(text);

@@ -266,7 +266,7 @@
 			['\u00ec', 'ि', 'incomplete combining -i (even longer version, used in sti)'],
 
 			['_O"s', 'स्तु'],
-			['Y"ss', 'यु!s!', 'Second combining vowel is invalid'],
+			['Y"ss', 'यु', 'duplicated second combining vowel'],
 			['X"##', 'मःः'],
 			// ['\u00ad', '\u00ad', 'Soft hyphen'],
 			['\u0009', '\u0009', 'tab'],
@@ -299,6 +299,10 @@
 			['<O"#', 'तिः'],
 			['X"t<R"n{ <T"NL>pv', 'मूर्ध्नि पिण्डौ'],
 			['<O"|', 'र्तिं', ''],
+			['B"sl\u00B7°N"pz', 'गुरूणां', 'allow duplicated "-u" in gurUNAM'],
+			['O"uu', 'ते', 'allow duplicated "-e" in te'],
+			['\u00E4puv', 'ङ्कौ', 'allow duplicated "line above" as "-o" when "-au" overwrites it in ngkau'],
+			['T"zs', 'पुं', 'allow anusvara to be after combining u in puM'],
 		];
 		for (var i=0; i < tests.length; i++) {
 			runTest(tests[i][0], tests[i][1]);
