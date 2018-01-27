@@ -27,8 +27,7 @@ TEST(RunnerTest, ThrowOnNonexistingExecutable) {
 
 }
 
-/*TEST(RunnerText, EmptyEcho) {
-Runner r{ "echo.exe" };
-std::string s;
-r >> s;
-}*/
+TEST(RunnerTest, EchoTwoStrings) {
+	std::string s = run("cmd /c echo str1 str2", "");
+	ASSERT_EQ("str1 str2", s);
+}

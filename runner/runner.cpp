@@ -4,7 +4,7 @@
 
 #include <Windows.h>
 
-void run(const std::string &cmdline)
+std::string run(const std::string &cmdline, const std::string &in)
 {
 	//SECURITY_ATTRIBUTES sa;
 	//sa.nLength = sizeof(sa);
@@ -36,4 +36,5 @@ void run(const std::string &cmdline)
 	}
 	CloseHandle(pi.hProcess);
 	CloseHandle(pi.hThread);
+	return "";
 }

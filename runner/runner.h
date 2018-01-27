@@ -1,4 +1,4 @@
 #pragma once
 #include <string>
 
-void run(const std::string &cmdline);
+std::string run(const std::string &cmdline, const std::string &in = "");
