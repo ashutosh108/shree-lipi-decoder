@@ -12,8 +12,6 @@ TEST(RunnerTest, CannotCreateEmpty) {
 	catch (...) {
 		FAIL() << "Wrong exception";
 	};
-	EXPECT_EQ(1, 1);
-	EXPECT_TRUE(true);
 }
 
 TEST(RunnerTest, ThrowOnNonexistingExecutable) {

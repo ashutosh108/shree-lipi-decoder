@@ -34,4 +34,6 @@ void run(const std::string &cmdline)
 		&pi)) {
 		throw std::runtime_error("Cannot start the process");
 	}
+	CloseHandle(pi.hProcess);
+	CloseHandle(pi.hThread);
 }
