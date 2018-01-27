@@ -1,0 +1,31 @@
+= converter
+
+class HtmlTextConverter {
+	public convert(std::basic_istream in, std::basic_ostream out) {
+		html_lexer = 
+	}
+}
+
+= fonts used:
+
+== SVAYU-STUTI-1F(BHOOMIKA).p65
+SHREE-SAN-0962
+SHREE850L
+SHREE851L
+SHREE960
+SHREE962
+SHREE964
+SHREEJ02
+SHREEJ04
+SHREEJ13
+SHREEJ50
+SHREEJ52
+Times
+
+== SVAYU-STUTI-F1.p65
+SHREE851L
+SHREE960
+SHREE962
+SHREE964
+SHREEJ50
+Times
