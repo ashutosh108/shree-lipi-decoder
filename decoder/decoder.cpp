@@ -5,5 +5,5 @@
 
 int main() {
 	//"cpdf --stream-data=uncompress J:\\YandexDisk\\Reference\\B\\Books\\Madhva\\source\\vayustuti_pagemaker_files\\VayuStuti.pdf -");
-	run("cmd /c dir");
+	std::cout << run("cmd /c dir");
 }

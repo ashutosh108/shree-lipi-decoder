@@ -27,7 +27,21 @@ TEST(RunnerTest, ThrowOnNonexistingExecutable) {
 
 }
 
+void rtrim(std::string &s) {
+	auto last_nonspace = std::find_if_not(s.rbegin(), s.rend(), ::isspace);
+	auto last_space = last_nonspace.base();
+	s.erase(last_space, s.end());
+}
+
 TEST(RunnerTest, EchoTwoStrings) {
 	std::string s = run("cmd /c echo str1 str2", "");
+	rtrim(s);
 	ASSERT_EQ("str1 str2", s);
+}
+
+TEST(PipeTest, CanCreate) {
+	Pipe pipe;
+	HANDLE rd = pipe.rd;
+	HANDLE wr = pipe.wr;
+	SUCCEED();
 }
