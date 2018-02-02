@@ -5,6 +5,20 @@
 
 #include <Windows.h>
 
+void write_to_process(HANDLE &h, const std::string &s) {
+	DWORD bytes_written = 0;
+	DWORD bytes_to_write = static_cast<DWORD>(s.length());
+	while (bytes_written < bytes_to_write) {
+		DWORD bytes_to_write_now = bytes_to_write - bytes_written;
+		DWORD bytes_written_now;
+		bool ok = WriteFile(h, &s[bytes_written], bytes_to_write_now, &bytes_written_now, NULL);
+		if (!ok || bytes_written_now == 0) {
+			break;
+		}
+		bytes_written += bytes_written_now;
+	}
+}
+
 std::string run(const std::string &cmdline, const std::string &in)
 {
 	Pipe stdin_pipe;
@@ -42,11 +56,13 @@ std::string run(const std::string &cmdline, const std::string &in)
 	CloseHandle(pi.hProcess);
 	CloseHandle(pi.hThread);
 
-	CloseHandle(stdin_pipe.wr);
-	stdin_pipe.wr = INVALID_HANDLE_VALUE;
-
 	CloseHandle(stdout_pipe.wr);
 	stdout_pipe.wr = INVALID_HANDLE_VALUE;
+
+	write_to_process(stdin_pipe.wr, in);
+
+	CloseHandle(stdin_pipe.wr);
+	stdin_pipe.wr = INVALID_HANDLE_VALUE;
 
 	const int BUFSIZE = 4096;
 

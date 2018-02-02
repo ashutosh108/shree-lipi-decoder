@@ -39,6 +39,12 @@ TEST(RunnerTest, EchoTwoStrings) {
 	ASSERT_EQ("str1 str2", s);
 }
 
+TEST(RunnerTest, FindStrWorksStdinInput) {
+	std::string s = run("findstr \"qwe\"", "a\r\nqwe\r\nqwe\r\n");
+	rtrim(s);
+	ASSERT_EQ("qwe\r\nqwe", s);
+}
+
 TEST(PipeTest, CanCreate) {
 	Pipe pipe;
 	HANDLE rd = pipe.rd;
