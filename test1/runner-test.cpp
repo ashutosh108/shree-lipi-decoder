@@ -5,7 +5,7 @@
 
 TEST(RunnerTest, CannotCreateEmpty) {
 	try {
-		run("");
+		Runner::run("");
 		FAIL() << "Should have caught the exception";
 	}
 	catch (std::runtime_error e) {
@@ -17,7 +17,7 @@ TEST(RunnerTest, CannotCreateEmpty) {
 
 TEST(RunnerTest, ThrowOnNonexistingExecutable) {
 	try {
-		run("non-existing-executable.exe");
+		Runner::run("non-existing-executable.exe");
 		FAIL() << "Should have caught the exception";
 	}
 	catch (std::runtime_error e) {
@@ -35,13 +35,13 @@ void rtrim(std::string &s) {
 }
 
 TEST(RunnerTest, EchoTwoStrings) {
-	std::string s = run("cmd /c echo str1 str2", "");
+	std::string s = Runner::run("cmd /c echo str1 str2", "");
 	rtrim(s);
 	ASSERT_EQ("str1 str2", s);
 }
 
 TEST(RunnerTest, FindStrWorksStdinInput) {
-	std::string s = run("findstr \"qwe\"", "a\r\nqwe\r\nqwe\r\n");
+	std::string s = Runner::run("findstr \"qwe\"", "a\r\nqwe\r\nqwe\r\n");
 	rtrim(s);
 	ASSERT_EQ("qwe\r\nqwe", s);
 }
@@ -60,13 +60,6 @@ TEST(RunnerTest, Cat64KB) {
 	in += repeat("\n", total_size/4);
 	in += repeat("\r\n", total_size/8);
 	in += repeat("\n\r", total_size/8);
-	std::string res = run("cat.exe", in);
+	std::string res = Runner::run("cat.exe", in);
 	ASSERT_EQ(res, in);
-}
-
-TEST(PipeTest, CanCreate) {
-	Pipe pipe;
-	HANDLE rd = pipe.rd;
-	HANDLE wr = pipe.wr;
-	SUCCEED();
 }
