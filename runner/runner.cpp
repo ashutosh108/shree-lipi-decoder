@@ -41,16 +41,16 @@ std::string read_from_process(HANDLE &h) {
 	return result;
 }
 
-std::string run(const std::string &cmdline, const std::string &in)
-{
-	Pipe stdin_pipe;
-	if (!SetHandleInformation(stdin_pipe.wr, HANDLE_FLAG_INHERIT, 0))
+void prepare_pipe_pair(Pipe *in, Pipe *out) {
+	if (!SetHandleInformation(in->wr, HANDLE_FLAG_INHERIT, 0))
 		throw std::runtime_error("Stdin SetHandleInformation");
 
-	Pipe stdout_pipe;
-	if (!SetHandleInformation(stdout_pipe.rd, HANDLE_FLAG_INHERIT, 0))
+	if (!SetHandleInformation(out->rd, HANDLE_FLAG_INHERIT, 0))
 		throw std::runtime_error("Stdout SetHandleInformation");
+}
 
+void start_process(Pipe &stdin_pipe, Pipe &stdout_pipe, const std::string & cmdline)
+{
 	STARTUPINFO si;
 	memset(&si, 0, sizeof(si));
 	si.cb = sizeof(si);
@@ -80,6 +80,14 @@ std::string run(const std::string &cmdline, const std::string &in)
 
 	CloseHandle(stdout_pipe.wr);
 	stdout_pipe.wr = INVALID_HANDLE_VALUE;
+}
+
+std::string run(const std::string &cmdline, const std::string &in)
+{
+	Pipe stdin_pipe, stdout_pipe;
+	prepare_pipe_pair(&stdin_pipe, &stdout_pipe);
+
+	start_process(stdin_pipe, stdout_pipe, cmdline);
 
 	write_to_process(stdin_pipe.wr, in);
 
