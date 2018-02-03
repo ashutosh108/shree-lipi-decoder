@@ -30,6 +30,22 @@ namespace Runner {
 		h = INVALID_HANDLE_VALUE;
 	}
 
+	void write_to_process(HANDLE &h, std::function<std::string()> writer) {
+		for (;;) {
+			std::string chunk = writer();
+			if (chunk.empty()) {
+				break;
+			}
+			DWORD written;
+			bool ok = WriteFile(h, &chunk[0], (DWORD)chunk.size(), &written, nullptr);
+			if (!ok || written == 0) {
+				break;
+			}
+		}
+		CloseHandle(h);
+		h = INVALID_HANDLE_VALUE;
+	}
+
 	std::string read_from_process(HANDLE &h) {
 		const int BUFSIZE = 4096;
 
@@ -48,6 +64,25 @@ namespace Runner {
 		CloseHandle(h);
 		h = INVALID_HANDLE_VALUE;
 		return result;
+	}
+
+	void read_from_process(HANDLE &h, std::function<void(std::string)> reader) {
+		const int BUFSIZE = 4096;
+
+		char buf[BUFSIZE];
+
+		std::string result;
+
+		for (;;) {
+			DWORD read_bytes;
+			bool ok = ReadFile(h, buf, BUFSIZE, &read_bytes, NULL);
+			if (!ok || read_bytes == 0) {
+				break;
+			}
+			reader(std::string(buf, read_bytes));
+		}
+		CloseHandle(h);
+		h = INVALID_HANDLE_VALUE;
 	}
 
 	void prepare_pipe_pair(Pipe *in, Pipe *out) {
@@ -107,6 +142,25 @@ namespace Runner {
 		writer.join();
 
 		return result;
+	}
+
+	void run(
+		const std::string &cmdline,
+		std::function<std::string()> writer,
+		std::function<void(std::string)> reader)
+	{
+		Pipe stdin_pipe, stdout_pipe;
+		prepare_pipe_pair(&stdin_pipe, &stdout_pipe);
+
+		start_process(stdin_pipe, stdout_pipe, cmdline);
+
+		std::thread writer_thread([&stdin_pipe, &writer] {
+			write_to_process(stdin_pipe.wr, writer);
+		});
+
+		read_from_process(stdout_pipe.rd, reader);
+
+		writer_thread.join();
 	}
 
 	Pipe::Pipe() : rd(INVALID_HANDLE_VALUE), wr(INVALID_HANDLE_VALUE)

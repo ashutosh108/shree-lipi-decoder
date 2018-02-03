@@ -63,3 +63,29 @@ TEST(RunnerTest, Cat64KB) {
 	std::string res = Runner::run("cat.exe", in);
 	ASSERT_EQ(res, in);
 }
+
+TEST(RunnerTest, Callbacks) {
+	const size_t total_size = 64 * 1024;
+	size_t sent = 0;
+	size_t received = 0;
+	std::string to_send = repeat("*", total_size/4);
+	std::function<std::string()> writer = [&]() -> std::string {
+		if (sent < total_size) {
+			sent += to_send.size();
+			return to_send;
+		}
+		return "";
+	};
+
+	std::function<void(std::string)> reader = [&](std::string chunk) {
+		received += chunk.size();
+	};
+
+	Runner::run(
+		"cat.exe",
+		writer,
+		reader
+	);
+	ASSERT_EQ(sent, total_size);
+	ASSERT_EQ(received, total_size);
+}
