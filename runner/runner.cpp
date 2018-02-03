@@ -1,7 +1,8 @@
 #include "runner.h"
 
-#include <string>
 #include <iostream>
+#include <string>
+#include <thread>
 
 #include <Windows.h>
 
@@ -89,9 +90,13 @@ std::string run(const std::string &cmdline, const std::string &in)
 
 	start_process(stdin_pipe, stdout_pipe, cmdline);
 
-	write_to_process(stdin_pipe.wr, in);
+	std::thread writer([&] {
+		write_to_process(stdin_pipe.wr, in);
+	});
 
 	std::string result = read_from_process(stdout_pipe.rd);
+
+	writer.join();
 
 	return result;
 }

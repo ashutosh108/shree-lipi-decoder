@@ -54,8 +54,8 @@ std::string repeat(const std::string &s, int times) {
 	return os.str();
 }
 
-TEST(RunnerTest, Cat512KB) {
-	const int total_size = 512 * 1024;
+TEST(RunnerTest, Cat64KB) {
+	const int total_size = 64 * 1024;
 	std::string in = repeat("\r", total_size/4);
 	in += repeat("\n", total_size/4);
 	in += repeat("\r\n", total_size/8);
