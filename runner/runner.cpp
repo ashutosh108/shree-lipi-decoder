@@ -17,6 +17,28 @@ void write_to_process(HANDLE &h, const std::string &s) {
 		}
 		bytes_written += bytes_written_now;
 	}
+	CloseHandle(h);
+	h = INVALID_HANDLE_VALUE;
+}
+
+std::string read_from_process(HANDLE &h) {
+	const int BUFSIZE = 4096;
+
+	char buf[BUFSIZE];
+
+	std::string result;
+
+	for (;;) {
+		DWORD read_bytes;
+		bool ok = ReadFile(h, buf, BUFSIZE, &read_bytes, NULL);
+		if (!ok || read_bytes == 0) {
+			break;
+		}
+		result += std::string(buf, read_bytes);
+	}
+	CloseHandle(h);
+	h = INVALID_HANDLE_VALUE;
+	return result;
 }
 
 std::string run(const std::string &cmdline, const std::string &in)
@@ -61,25 +83,7 @@ std::string run(const std::string &cmdline, const std::string &in)
 
 	write_to_process(stdin_pipe.wr, in);
 
-	CloseHandle(stdin_pipe.wr);
-	stdin_pipe.wr = INVALID_HANDLE_VALUE;
-
-	const int BUFSIZE = 4096;
-
-	char buf[BUFSIZE];
-
-	std::string result;
-
-	for (;;) {
-		DWORD read_bytes;
-		bool ok = ReadFile(stdout_pipe.rd, buf, BUFSIZE, &read_bytes, NULL);
-		if (!ok || read_bytes == 0) {
-			break;
-		}
-		result += std::string(buf, read_bytes);
-	}
-	CloseHandle(stdout_pipe.rd);
-	stdout_pipe.rd = INVALID_HANDLE_VALUE;
+	std::string result = read_from_process(stdout_pipe.rd);
 
 	return result;
 }
