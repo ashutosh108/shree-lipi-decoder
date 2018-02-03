@@ -26,6 +26,9 @@
       <Project>{64ff030f-1166-4a94-a684-6e1a93797f70}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="notes.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E392EB40-18C4-4C4F-8029-92112AFBFFA2}</ProjectGuid>
