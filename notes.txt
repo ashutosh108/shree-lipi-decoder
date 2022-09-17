@@ -1,0 +1,39 @@
+Converting UpanishathChandrikaPart1.pdf to HTML:
+
+Acrobat
+	Can't export (some error). When removed most of pages, it can export (very slowly) but most characters are replaced by space.
+mupdf-1.12.0-windows
+	Seem to be confused about encoding (almost all symbols turn into U+FFFD), also loses actual font names (they turn into T1, T2, T3...).
+pdftohtml-0.39
+	Can only handle PDF-1.6, and hit is PDF-1.5 (or something like that)
+pdf2htmlEX-win32-0.14.6-upx-with-poppler-data
+	Most chars are ignored (mostly "[", "]" etc remain).
+	Also: Internal Error: Attempt to output 2147483647 into a 16-bit field. It will be truncated and the file may not be useful.
+poppler-0.51 (pdftohtml.exe)
+	The only tool to extract useable text from PDF as is: all latin-baser chars are readable and devanagari are somewhat close to what we had from VayuStuti. But it doesn't extract any formatting at all (bold or latin are not marked).
+poppler-0.60.1 (from MikTeX windows distribution): same as poppler-0.51
+
+# How to compile poppler-0.62 on windows (mingw32) #
+1. freetype
+	wget ...
+	tar x...
+	cd freetype-...
+	./configure
+	make
+	make install
+
+2. expat
+	wget https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-2.2.5.tar.bz2
+	tar xjvf expat-2.2.5.tar.bz2
+	cd expat-2.2.5/
+	./configure
+	make
+
+3. download and install fontconfig
+	pacman -Syuu gperf
+	tar xjf fontconfig-2.13.0.tar.bz2
+	cd fontconfig-2.13.0
+	./configure
+	make
+	make install
+4. 
